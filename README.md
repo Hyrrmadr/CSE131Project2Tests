@@ -4,7 +4,7 @@
 
     Usage: test.sh [-cdh] dir
     	-c	use Makefile rule 'compile_custom' instead of 'compile' (has to be setup ahead)
-		  -d	use RCdbg instead of RC
+		-d	use RCdbg instead of RC
     	-h	print this message
     	dir	give the directory to correct
 
