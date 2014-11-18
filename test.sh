@@ -39,7 +39,10 @@ launch()
   old_path="`pwd`"
   cd "$bindir"
   bindir=.
-  t="$old_path"
+
+  if [ "${t:0:1}" != "/" ]; then
+    t="$old_path"
+  fi
 
   binname='RC'
   if [ $dg -eq 1 ]; then
