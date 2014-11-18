@@ -1,0 +1,6 @@
+function : void main() {
+  const int c1 = 2;
+  const int c2 = 4;
+  int[10] x1;
+  cout << (x1[c1 * 23 - (c1 + c2)]);
+}

@@ -1,0 +1,42 @@
+REC: 1
+REC: 2
+REC: 3
+REC: 4
+REC: 5
+REC: 1
+REC: 2
+REC: 3
+REC: 4
+REC: 5
+AFTER
+foo()
+ST00: 4 3
+OP00: 5 4
+ST01: 5 4
+OP01: 5 4
+ST02: 6 5
+OP02: 7 5
+ST03: 7 6
+OP03: 7 7
+ST04: 8 7
+OP04: 7 6
+ST05: 7 6
+OP05: 7 6
+ST06: 6 5
+OP06: 5 5
+ST07: 5 4
+OP07: 5 3
+ST08: 4 3
+OP08: 5 2
+ST09: 5 2
+OP09: 5 2
+ST10: 6 1
+OP10: 5 1
+ST11: 5 2
+OP11: 5 3
+ST12: 4 3
+bar()
+F0: fooI():42 fooF():3.14 fooB():true
+F1: fooF():3.14 fooB():true fooI():42
+F2: fooB():true fooI():42 fooF():3.14
+fooV()

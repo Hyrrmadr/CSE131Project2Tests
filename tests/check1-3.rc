@@ -1,0 +1,111 @@
+
+function : int fooI() {
+  cout << "fooI():";
+
+  return 42;
+}
+
+function : float fooF() {
+  cout << "fooF():";
+
+  return 3.14;
+}
+
+function : bool fooB() {
+  cout << "fooB():";
+
+  return true;
+}
+
+function : void fooV() {
+  cout << "fooV()" << endl;
+
+  return;
+}
+
+function : void bar() {
+  cout << "bar()" << endl;
+
+  cout << "F0: " << fooI() << " " << fooF() << " " << fooB() << endl;
+  cout << "F1: " << fooF() << " " << fooB() << " " << fooI() << endl;
+  cout << "F2: " << fooB() << " " << fooI() << " " << fooF() << endl;
+  fooV();
+}
+
+function : void foo() {
+  cout << "foo()" << endl;
+
+  int x = 4;
+  int y = 3;
+
+  cout << "ST00: " << x << " " << y << endl;
+
+  cout << "OP00: " << ++x << " " << ++y << endl;
+  cout << "ST01: " << x << " " << y << endl;
+  cout << "OP01: " << x++ << " " << y++ << endl;
+  cout << "ST02: " << x << " " << y << endl;
+  cout << "OP02: " << ++x << " " << y++ << endl;
+  cout << "ST03: " << x << " " << y << endl;
+  cout << "OP03: " << x++ << " " << ++y << endl;
+
+  cout << "ST04: " << x << " " << y << endl;
+
+  cout << "OP04: " << --x << " " << --y << endl;
+  cout << "ST05: " << x << " " << y << endl;
+  cout << "OP05: " << x-- << " " << y-- << endl;
+  cout << "ST06: " << x << " " << y << endl;
+  cout << "OP06: " << --x << " " << y-- << endl;
+  cout << "ST07: " << x << " " << y << endl;
+  cout << "OP07: " << x-- << " " << --y << endl;
+
+  cout << "ST08: " << x << " " << y << endl;
+
+  cout << "OP08: " << ++x << " " << --y << endl;
+  cout << "ST09: " << x << " " << y << endl;
+  cout << "OP09: " << x++ << " " << y-- << endl;
+  cout << "ST10: " << x << " " << y << endl;
+  cout << "OP10: " << --x << " " << y++ << endl;
+  cout << "ST11: " << x << " " << y << endl;
+  cout << "OP11: " << x-- << " " << ++y << endl;
+
+  cout << "ST12: " << x << " " << y << endl;
+
+  bar();
+
+  exit(5);
+  cout << "BAD" << endl;
+  return;
+}
+
+function : void rec() {
+  static int x = 0;
+
+  ++x;
+
+  cout << "REC: " << x << endl;
+
+  if (x < 5) {
+    rec();
+    return;
+  }
+
+  cout << "AFTER" << endl;
+}
+
+function : void main() {
+  static int x = 0;
+
+  ++x;
+
+  cout << "REC: " << x << endl;
+
+  if (x < 5) {
+    main();
+    return;
+  }
+
+  rec();
+
+  foo();
+  cout << "BAD" << endl;
+}

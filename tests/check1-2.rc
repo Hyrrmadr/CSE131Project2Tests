@@ -1,0 +1,71 @@
+
+function : void main() {
+  const int c1 = 210;
+  const int c2 = sizeof(c1) + c1;
+  cout << c1 + 210 << endl;     // outputs 420
+  cout << c2 << endl;           // outputs 214
+  const float r1 = 420.25;
+  cout << r1 + 662.50 << "\n";  // outputs 1082.75
+  cout << sizeof(r1) << endl;   // outputs 4
+
+  cout << -3 * 8 / +2 + 2 - 1 << endl;
+  cout << -3 - 8 + +2 * 1 / 2 << endl;
+  cout << 533 & 21 | 1234 ^ 235 << endl;
+
+  int huit = 8;
+  int trois = 3;
+  int deux = 2;
+  int un = 1;
+
+  cout << -trois * huit / +deux + deux - un << endl;
+  cout << -trois - huit + +deux * un / deux << endl;
+
+  int cinqcenttrentetrois = 533;
+  int vingtetun = 21;
+  int milledeuxcenttrentequatre = 1234;
+  int deuxcenttrentecinq = 235;
+
+  cout << cinqcenttrentetrois & vingtetun | milledeuxcenttrentequatre ^ deuxcenttrentecinq << endl;
+
+  if (c1 > 200)
+  {
+    cout << "GOOD" << endl;
+  }
+  if (c1 > 210)
+  {
+    cout << "BAD" << endl;
+  }
+
+  if (huit > trois)
+  {
+    cout << "GOOD" << endl;
+  }
+  if (trois > huit)
+  {
+    cout << "BAD" << endl;
+  }
+
+  if (huit > trois)
+  {
+    if (huit > trois)
+    {
+      cout << "GOOD" << endl;
+    }
+    if (trois > huit)
+    {
+      cout << "BAD" << endl;
+    }
+  }
+
+  if (trois > huit)
+  {
+    if (huit > trois)
+    {
+      cout << "BAD" << endl;
+    }
+    if (trois > huit)
+    {
+      cout << "BAD" << endl;
+    }
+  }
+}
