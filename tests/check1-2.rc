@@ -19,6 +19,7 @@ function : void main() {
 
   cout << -trois * huit / +deux + deux - un << endl;
   cout << -trois - huit + +deux * un / deux << endl;
+  cout << huit % trois << endl;
 
   int cinqcenttrentetrois = 533;
   int vingtetun = 21;

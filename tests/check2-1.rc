@@ -1,0 +1,236 @@
+
+// USE THIS TO DISABLE CIN
+bool test_cin = false;
+// /CIN
+
+int i = 0;
+
+function : void foo() {
+  static int j = 6;
+  --j;
+  bool yes;
+
+  cout << "START: i = " << i << "; j = " << j << endl;
+
+  int tmp = j;
+  if (yes = j > 0) { i = j - 1; foo(); }
+  j = tmp;
+
+  cout << "END:   i = " << i << "; j = " << j << "; yes = " << yes << endl;
+}
+
+function : bool goodtrue() {
+  cout << "GOOD" << endl;
+  return true;
+}
+
+function : bool goodfalse() {
+  cout << "GOOD" << endl;
+  return false;
+}
+
+function : bool bad() {
+  cout << "BAD" << endl;
+  return false;
+}
+
+function : void conds2() {
+  cout << "CONDS2" << endl;
+
+  bool vrai = true;
+  bool faux = false;
+
+  cout << vrai << " " << faux << endl;
+
+  bool result;
+
+  cout << "&&" << endl;
+  result = vrai && vrai;
+  cout << result << endl;
+
+  result = vrai && faux;
+  cout << result << endl;
+
+  result = faux && vrai;
+  cout << result << endl;
+
+  result = faux && faux;
+  cout << result << endl;
+
+  result = vrai && goodtrue();
+  cout << result << endl;
+
+  result = faux && bad();
+  cout << result << endl;
+
+  cout << "||" << endl;
+  result = vrai || vrai;
+  cout << result << endl;
+
+  result = vrai || faux;
+  cout << result << endl;
+
+  result = faux || vrai;
+  cout << result << endl;
+
+  result = faux || faux;
+  cout << result << endl;
+
+  result = vrai || bad();
+  cout << result << endl;
+
+  result = faux || goodfalse();
+  cout << result << endl;
+
+  cout << "!" << endl;
+  result = !vrai;
+  cout << result << endl;
+
+  result = !faux;
+  cout << result << endl;
+
+  cout << "Mix" << endl;
+
+  result = vrai && ((!faux && goodtrue()) || bad());
+  cout << result << endl;
+}
+
+function : void conds() {
+  cout << "CONDS" << endl;
+
+  int huit = 8;
+  int trois = 3;
+
+  int huit2 = 8;
+
+  float pi = 3.14;
+  float absolute = 273.15;
+
+  float pi2 = 3.14;
+
+  bool vrai = true;
+  bool faux = false;
+
+  bool vrai2 = true;
+
+  cout << huit << " " << huit2 << " " << trois << endl;
+  cout << pi << " " << pi2 << " " << absolute << endl;
+  cout << vrai << " " << vrai2 << " " << faux << endl;
+
+  cout << "int >" << endl;
+  if (huit > trois) { cout << "GOOD" << endl; }
+  if (huit > huit2) { cout << "BAD" << endl; }
+  if (trois > huit) { cout << "BAD" << endl; }
+
+  cout << "int >=" << endl;
+  if (huit >= trois) { cout << "GOOD" << endl; }
+  if (huit >= huit2) { cout << "GOOD" << endl; }
+  if (trois >= huit) { cout << "BAD" << endl; }
+
+  cout << "int <" << endl;
+  if (trois < huit) { cout << "GOOD" << endl; }
+  if (huit < huit2) { cout << "BAD" << endl; }
+  if (huit < trois) { cout << "BAD" << endl; }
+
+  cout << "int <=" << endl;
+  if (trois <= huit) { cout << "GOOD" << endl; }
+  if (huit <= huit2) { cout << "GOOD" << endl; }
+  if (huit <= trois) { cout << "BAD" << endl; }
+
+  cout << "int ==" << endl;
+  if (huit == huit2) { cout << "GOOD" << endl; }
+  if (huit2 == trois) { cout << "BAD" << endl; }
+
+  cout << "int !=" << endl;
+  if (huit2 != trois) { cout << "GOOD" << endl; }
+  if (huit != huit2) { cout << "BAD" << endl; }
+
+  cout << "float >" << endl;
+  if (absolute > pi) { cout << "GOOD" << endl; }
+  if (pi > pi2) { cout << "BAD" << endl; }
+  if (pi > absolute) { cout << "BAD" << endl; }
+
+  cout << "float >=" << endl;
+  if (absolute >= pi) { cout << "GOOD" << endl; }
+  if (pi >= pi2) { cout << "GOOD" << endl; }
+  if (pi >= absolute) { cout << "BAD" << endl; }
+
+  cout << "float <" << endl;
+  if (pi < absolute) { cout << "GOOD" << endl; }
+  if (pi < pi2) { cout << "BAD" << endl; }
+  if (absolute < pi) { cout << "BAD" << endl; }
+
+  cout << "float <=" << endl;
+  if (pi <= absolute) { cout << "GOOD" << endl; }
+  if (pi <= pi2) { cout << "GOOD" << endl; }
+  if (absolute <= pi) { cout << "BAD" << endl; }
+
+  cout << "float ==" << endl;
+  if (pi == pi2) { cout << "GOOD" << endl; }
+  if (pi == absolute) { cout << "BAD" << endl; }
+
+  cout << "float !=" << endl;
+  if (pi != absolute) { cout << "GOOD" << endl; }
+  if (pi != pi2) { cout << "BAD" << endl; }
+
+  cout << "bool ==" << endl;
+  if (vrai == vrai2) { cout << "GOOD" << endl; }
+  if (vrai == faux) { cout << "BAD" << endl; }
+
+  cout << "bool !=" << endl;
+  if (vrai != faux) { cout << "GOOD" << endl; }
+  if (vrai != vrai2) { cout << "BAD" << endl; }
+
+  conds2();
+}
+
+function : void inputs() {
+  int i1;
+  int i2 = 4;
+
+  float f1;
+  float f2 = 3.02;
+
+  cout << "INPUTS" << endl;
+
+  cout << i2 << " " << f2 << endl;
+
+  if (test_cin) {
+    cin >> i1;
+    cin >> i2;
+    cin >> f1;
+    cin >> f2;
+
+    cout << i1 << " " << i2 << " " << f1 << " " << f2 << endl;
+  }
+  if (!test_cin) {
+    cout << "YOUR VALUES (INT, INT, FLOAT, FLOAT)" << endl;
+  }
+}
+
+function : void main() {
+  cout << "MAIN" << endl;
+
+  float pi = 3.14;
+  float cent = 0.01;
+  float cent_fr = 100;
+
+  int answer = 42;
+
+  cout << -pi * cent / +cent_fr + pi - cent << endl;
+  cout << -pi - cent + +cent_fr * cent / pi << endl;
+
+  cout << cent * answer << endl;
+  cout << answer * 100 << endl;
+  cout << answer + pi * 420 << endl;
+
+  pi = answer;
+  cout << pi << endl;
+
+  conds();
+
+  inputs();
+
+  cout << "FOO" << endl;
+  foo();
+}

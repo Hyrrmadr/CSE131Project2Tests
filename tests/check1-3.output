@@ -40,3 +40,7 @@ F0: fooI():42 fooF():3.14 fooB():true
 F1: fooF():3.14 fooB():true fooI():42
 F2: fooB():true fooI():42 fooF():3.14
 fooV()
+1
+fooG()
+1
+2

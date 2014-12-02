@@ -23,6 +23,14 @@ function : void fooV() {
   return;
 }
 
+int g = 1;
+
+function : int fooG() {
+  cout << "fooG()" << endl;
+
+  return g++;
+}
+
 function : void bar() {
   cout << "bar()" << endl;
 
@@ -30,6 +38,10 @@ function : void bar() {
   cout << "F1: " << fooF() << " " << fooB() << " " << fooI() << endl;
   cout << "F2: " << fooB() << " " << fooI() << " " << fooF() << endl;
   fooV();
+
+  cout << g << endl;
+  cout << fooG() << endl;
+  cout << g << endl;
 }
 
 function : void foo() {

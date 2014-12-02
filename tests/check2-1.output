@@ -1,0 +1,83 @@
+MAIN
+3.13
+-2.83
+0.42
+4200
+1360.80
+42.00
+CONDS
+8 8 3
+3.14 3.14 273.15
+true true false
+int >
+GOOD
+int >=
+GOOD
+GOOD
+int <
+GOOD
+int <=
+GOOD
+GOOD
+int ==
+GOOD
+int !=
+GOOD
+float >
+GOOD
+float >=
+GOOD
+GOOD
+float <
+GOOD
+float <=
+GOOD
+GOOD
+float ==
+GOOD
+float !=
+GOOD
+bool ==
+GOOD
+bool !=
+GOOD
+CONDS2
+true false
+&&
+true
+false
+false
+false
+GOOD
+true
+false
+||
+true
+true
+true
+false
+true
+GOOD
+false
+!
+false
+true
+Mix
+GOOD
+true
+INPUTS
+4 3.02
+YOUR VALUES (INT, INT, FLOAT, FLOAT)
+FOO
+START: i = 0; j = 5
+START: i = 4; j = 4
+START: i = 3; j = 3
+START: i = 2; j = 2
+START: i = 1; j = 1
+START: i = 0; j = 0
+END:   i = 0; j = 0; yes = false
+END:   i = 0; j = 1; yes = true
+END:   i = 0; j = 2; yes = true
+END:   i = 0; j = 3; yes = true
+END:   i = 0; j = 4; yes = true
+END:   i = 0; j = 5; yes = true
