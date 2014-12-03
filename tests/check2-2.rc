@@ -1,0 +1,175 @@
+
+function : void incDec() {
+  cout << "INCDEC" << endl;
+
+  float x = -0.01;
+  float y = 3.14;
+
+  cout << "ST00: " << x << " " << y << endl;
+
+  cout << "OP00: " << ++x << " " << ++y << endl;
+  cout << "ST01: " << x << " " << y << endl;
+  cout << "OP01: " << x++ << " " << y++ << endl;
+  cout << "ST02: " << x << " " << y << endl;
+  cout << "OP02: " << ++x << " " << y++ << endl;
+  cout << "ST03: " << x << " " << y << endl;
+  cout << "OP03: " << x++ << " " << ++y << endl;
+
+  cout << "ST04: " << x << " " << y << endl;
+
+  cout << "OP04: " << --x << " " << --y << endl;
+  cout << "ST05: " << x << " " << y << endl;
+  cout << "OP05: " << x-- << " " << y-- << endl;
+  cout << "ST06: " << x << " " << y << endl;
+  cout << "OP06: " << --x << " " << y-- << endl;
+  cout << "ST07: " << x << " " << y << endl;
+  cout << "OP07: " << x-- << " " << --y << endl;
+
+  cout << "ST08: " << x << " " << y << endl;
+
+  cout << "OP08: " << ++x << " " << --y << endl;
+  cout << "ST09: " << x << " " << y << endl;
+  cout << "OP09: " << x++ << " " << y-- << endl;
+  cout << "ST10: " << x << " " << y << endl;
+  cout << "OP10: " << --x << " " << y++ << endl;
+  cout << "ST11: " << x << " " << y << endl;
+  cout << "OP11: " << x-- << " " << ++y << endl;
+
+  cout << "ST12: " << x << " " << y << endl;
+}
+
+function : void ifElse() {
+  cout << "IFELSE" << endl;
+
+  bool vrai = true;
+  bool faux = !vrai;
+
+  if (vrai) { cout << "GOOD" << endl; }
+  else { cout << "BAD" << endl; }
+
+  if (vrai) {
+    if (vrai) { cout << "GOOD" << endl; }
+    else { cout << "BAD" << endl; }
+  } else {
+    if (vrai) { cout << "BAD" << endl; }
+    else { cout << "BAD" << endl; }
+  }
+
+  if (vrai) {
+    if (faux) { cout << "BAD" << endl; }
+    else { cout << "GOOD" << endl; }
+  }
+
+  if (faux) {
+    if (vrai) { cout << "BAD" << endl; }
+    else { cout << "BAD" << endl; }
+  } else {
+    if (vrai) { cout << "GOOD" << endl; }
+    else { cout << "BAD" << endl; }
+  }
+}
+
+function : void whileTest() {
+  cout << "WHILETEST" << endl;
+
+  cout << "INT" << endl;
+  int i, j;
+
+  i = 10; while (i > 0) { cout << " " << i; --i; } cout << endl;
+  i = 10; while (i >= 0) { cout << " " << i; --i; } cout << endl;
+
+  i = 0; while (i < 10) { cout << " " << i; ++i; } cout << endl;
+  i = 0; while (i <= 10) { cout << " " << i; ++i; } cout << endl;
+
+  j = 10; i = 10; while (j == 10) { cout << " " << i; --i; if (i == 0) { j = 0; } } cout << endl;
+  i = 0; while (i != 10) { cout << " " << i; ++i; } cout << endl;
+
+  cout << "FLOAT" << endl;
+  float x, y;
+
+  x = 10.5; while (x > 0.5) { cout << " " << x; --x; } cout << endl;
+  x = 10.5; while (x >= 0.5) { cout << " " << x; --x; } cout << endl;
+
+  x = 0.01; while (x < 10.01) { cout << " " << x; ++x; } cout << endl;
+  x = 0.01; while (x <= 10.01) { cout << " " << x; ++x; } cout << endl;
+
+  y = 10.5; x = 10.5; while (y == 10.5) { cout << " " << x; --x; if (x == 0.5) { y = 0; } } cout << endl;
+  x = 0.01; while (x != 10.01) { cout << " " << x; ++x; } cout << endl;
+
+  cout << "BOOL" << endl;
+  bool b;
+
+  b = true; i = 10; while (b == true) { cout << " " << i; --i; if (i == 0) { b = false; } } cout << endl;
+  b = true; i = 0; while (b != false) { cout << " " << i; ++i; if (i == 10) { b = false; } } cout << endl;
+}
+
+function : void whileFlowContinue() {
+  cout << "WHILEFLOWCONTINUE" << endl;
+
+  int i = 10;
+  while (i > 0) {
+    --i;
+    if (i == 5) { continue; }
+    if (i == 5) { cout << "BAD" << endl; }
+  }
+  cout << i << endl;
+}
+
+function : void whileFlowBreak() {
+  cout << "WHILEFLOWBREAK" << endl;
+
+  int i = 10;
+  while (i > 0) {
+    if (i == 5) { break; }
+    --i;
+  }
+  cout << i << endl;
+}
+
+function : void whileFlow() {
+  cout << "WHILEFLOW" << endl;
+
+  whileFlowBreak();
+  whileFlowContinue();
+
+  cout << "Mix" << endl;
+
+  int i = 10;
+
+  while (i > 0) {
+    --i;
+    cout << "BEGIN " << i << endl;
+    {
+      if (i == 3) {
+        whileFlowContinue();
+        break;
+      }
+    }
+    if (i == 5) {
+      if (i == 101) { cout << "BAD" << endl; }
+      else {
+        {
+          whileFlowBreak();
+          int j = 20;
+          while (j > 0) {
+            if (j == 10) {
+              { break; }
+            }
+            --j;
+          }
+          cout << j << endl;
+          continue;
+        }
+      }
+    }
+    cout << "END " << i << endl;
+  }
+  cout << i << endl;
+}
+
+function : void main() {
+  incDec();
+  ifElse();
+  whileTest();
+  whileFlow();
+}
