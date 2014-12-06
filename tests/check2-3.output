@@ -1,0 +1,133 @@
+FUNCS
+5 3.14 true
+fooI
+5 3.14 true
+42 0.01 false
+0.01
+42 3.14 true
+fooF
+42 3.14 true
+1337 0.01 false
+false
+42 0.01 true
+fooB
+42 0.01 true
+1337 -5.55 false
+1337
+42 0.01 false
+5
+fooV
+5 5
+10 5
+5
+fooR
+5 5
+10 10
+10
+sum 21
+sum 126
+126
+sqrt 42.00
+42.00 21.00
+63.00
+rec -1
+0
+0
+rec 0
+1
+1
+rec 1
+2
+2
+rec 2
+3
+3
+rec 3
+4
+4
+rec 4
+5
+5
+rec 5
+6
+cer 6
+cer 6 (6)
+cer 6 (6)
+cer 6 (6)
+cer 6 (6)
+cer 6 (6)
+cer 6 (6)
+6
+ARRAYS
+ 0 0 0 0 0
+ 0.00 0.00 0.00 0.00 0.00
+ false false false false false
+ 2 3 3 2 2
+ 2.22 2.22 2.22 3.33 3.33
+ true false false true false
+ 42 43 43 42 42
+ 0.01 0.01 0.01 -5.55 -5.55
+ false true true false true
+ 2 2.22 true 3 2.22 false 3 2.22 false 2 3.33 true 2 3.33 false
+STRUCTS
+dump 0, 0.00, false
+bar
+foo 42
+dump 0, 0.00, false
+dump 42, 0.00, false
+doe 3
+1337, 0.01, true
+foo 4242
+dump 1337, 0.01, true
+dump 4242, 0.01, false
+avg 5, 3, 2, 4, 1
+sum 15
+sum 90
+sum 540
+108
+STR.setI 42
+false
+CAL.setI 42
+42
+false
+loc
+dump 42, 5.55, false
+bar
+foo 42
+dump 42, 5.55, false
+dump 42, 5.55, true
+doe 4
+foo 4242
+dump 42, 5.55, true
+dump 4242, 5.55, false
+dump -3, 5.55, true
+dump 4242, 0.01, false
+dump 4242, 0.01, false
+dump 4242, 0.01, false
+dump 0, 0.01, false
+arr
+dump 0, 0.00, false
+foo 5
+dump 0, 0.00, false
+dump 5, 0.00, false
+dump 0, 0.00, false
+foo 15
+dump 0, 0.00, false
+dump 15, 0.00, false
+dump 0, 0.00, false
+foo 25
+dump 0, 0.00, false
+dump 25, 0.00, false
+dump 0, 0.00, false
+foo 35
+dump 0, 0.00, false
+dump 35, 0.00, false
+dump 0, 0.00, false
+foo 45
+dump 0, 0.00, false
+dump 45, 0.00, false
+MISC
+2
+0.01
+0
+0.00

@@ -1,0 +1,292 @@
+
+function : int sum(int a, int b, int c, int d, int e, int f) {
+  int s = a + b + c + d + e + f;
+
+  cout << "sum " << s << endl;
+
+  if (s > 100) {
+    return s;
+  }
+  return sum(s, s, s, s, s, s);
+}
+
+function : int rec(int & v) {
+  cout << "rec " << v << endl;
+
+  ++v;
+
+  cout << v << endl;
+
+  if (v > 5) {
+    cout << "cer " << v << endl;
+    return v;
+  }
+
+  cout << v << endl;
+
+  int ret = rec(v);
+
+  cout << "cer " << v << " (" << ret << ")" << endl;
+
+  return ret;
+}
+
+function : float fooI(int & i, float f, bool b) {
+  cout << "fooI" << endl;
+  cout << i << " " << f << " " << b << endl;
+  i = 42;
+  f = 0.01;
+  b = false;
+  cout << i << " " << f << " " << b << endl;
+  return f;
+}
+
+function : bool fooF(float & f, bool b, int i) {
+  cout << "fooF" << endl;
+  cout << i << " " << f << " " << b << endl;
+  i = 1337;
+  f = 0.01;
+  b = false;
+  cout << i << " " << f << " " << b << endl;
+  return b;
+}
+
+function : int fooB(bool & b, int i, float f) {
+  cout << "fooB" << endl;
+  cout << i << " " << f << " " << b << endl;
+  i = 1337;
+  f = -5.55;
+  b = false;
+  cout << i << " " << f << " " << b << endl;
+  return i;
+}
+
+function : float sqrt(float n) {
+  cout << "sqrt " << n << endl;
+  float f = n;
+  f = n / 2;
+  cout << n << " " << f << endl;
+  return n + f;
+}
+
+int g_funcs = 5;
+
+function : void fooV(int v) {
+  cout << "fooV" << endl;
+
+  cout << v << " " << g_funcs <<  endl;
+  v = 10;
+  cout << v << " " << g_funcs <<  endl;
+}
+
+function : void fooR(int & v) {
+  cout << "fooR" << endl;
+
+  cout << v << " " << g_funcs <<  endl;
+  v = 10;
+  cout << v << " " << g_funcs <<  endl;
+}
+
+function : void funcs() {
+  cout << "FUNCS" << endl;
+
+  int i = 5;
+  float f = 3.14;
+  bool b = true;
+
+  cout << i << " " << f << " " << b << endl;
+  cout << fooI(i, f, b) << endl;
+  cout << i << " " << f << " " << b << endl;
+  cout << fooF(f, b, i) << endl;
+  cout << i << " " << f << " " << b << endl;
+  cout << fooB(b, i, f) << endl;
+  cout << i << " " << f << " " << b << endl;
+
+  cout << g_funcs << endl;
+  fooV(g_funcs);
+  cout << g_funcs << endl;
+  fooR(g_funcs);
+  cout << g_funcs << endl;
+
+  cout << sum(1, 2, 3, 4, 5, 6) << endl;
+  cout << sqrt(42) << endl;
+  int r = -1;
+  cout << rec(r) << endl;
+}
+
+int[5] a;
+float[5] b;
+bool[5] c;
+
+function : void arrays() {
+  cout << "ARRAYS" << endl;
+
+  foreach (int i : a) { cout << " " << i; } cout << endl;
+  foreach (float i : b) { cout << " " << i; } cout << endl;
+  foreach (bool i : c) { cout << " " << i; } cout << endl;
+
+  int[5] al;
+  float[5] bl;
+  bool[5] cl;
+
+  a[0] = a[3] = a[4] = 2; a[1] = a[2] = 3;
+  al[0] = al[3] = al[4] = 42; al[1] = al[2] = 43;
+
+  b[1] = b[2] = b[0] = 2.22; b[4] = b[3] = 3.33;
+  bl[1] = bl[2] = bl[0] = 0.01; bl[4] = bl[3] = -5.55;
+
+  c[1] = c[2] = c[4] = false; c[3] = c[0] = true;
+  cl[1] = cl[2] = cl[4] = true; cl[3] = cl[0] = false;
+
+  foreach (int i : a) { cout << " " << i; } cout << endl;
+  foreach (float i : b) { cout << " " << i; } cout << endl;
+  foreach (bool i : c) { cout << " " << i; } cout << endl;
+
+  foreach (int i : al) { cout << " " << i; } cout << endl;
+  foreach (float i : bl) { cout << " " << i; } cout << endl;
+  foreach (bool i : cl) { cout << " " << i; } cout << endl;
+
+  int i = 0;
+
+  while (i < 5) {
+    cout << " " << a[i];
+    cout << " " << b[i];
+    cout << " " << c[i];
+    ++i;
+  }
+  cout << endl;
+}
+
+structdef CAL {
+  int i;
+
+  function : void setI(int a) {
+    cout << "CAL.setI " << a << endl;
+    this.i = a;
+    cout << this.i << endl;
+  }
+};
+
+structdef STR {
+  int i;
+  float f;
+  bool b;
+  CAL c;
+
+  function : void dump() {
+    cout << "dump " << this.i << ", " << this.f << ", " << this.b << endl;
+  }
+
+  function : void foo(int a) {
+    cout << "foo " << a << endl;
+    this.dump();
+    this.b = this.i == a;
+    this.i = a;
+    this.dump();
+  }
+
+  function : void bar() {
+    cout << "bar" << endl;
+    this.foo(42);
+  }
+
+  function : void doe(int a) {
+    cout << "doe " << a << endl;
+  }
+
+  function : int avg(int a, int b, int c, int d, int e) {
+    cout << "avg " << a << ", " << b << ", " << c << ", " << d << ", " << e << endl;
+    return sum(a, b, c, d, e, 0) / 5;
+  }
+
+  function : void setI(int a) {
+    cout << "STR.setI " << a << endl;
+    cout << this.b << endl;
+    this.c.setI(a);
+    cout << this.b << endl;
+  }
+};
+
+STR g_s;
+
+STR[5] g_a_s;
+
+function : void structs() {
+  cout << "STRUCTS" << endl;
+
+  g_s.dump();
+
+  g_s.bar();
+  g_s.doe(3);
+
+  g_s.i = 1337;
+  g_s.f = 0.01;
+  g_s.b = true;
+
+  cout << g_s.i << ", " << g_s.f << ", " << g_s.b << endl;
+
+  g_s.foo(4242);
+
+  cout << g_s.avg(5, 3, 2, 4, 1) << endl;
+
+  g_s.setI(42);
+
+  cout << "loc" << endl;
+
+  STR s;
+
+  s.i = 42;
+  s.f = 5.55;
+  s.b = false;
+
+  s.dump();
+  s.bar();
+  s.doe(4);
+  s.foo(4242);
+
+  s.b = true;
+  s.i = -3;
+
+  s.dump();
+
+  s = g_s;
+
+  g_s.dump();
+  s.dump();
+
+  s.i = 0;
+
+  g_s.dump();
+  s.dump();
+
+  cout << "arr" << endl;
+
+  int i = 5;
+  foreach (STR is : g_a_s) {
+    is.dump();
+    is.foo(i);
+    i = i + 10;
+  }
+}
+
+int gi = a[2];
+float gf = g_a_s[0].f;
+
+function : void misc() {
+  static int si = a[0];
+  static float sf = g_s.f;
+
+  cout << "MISC" << endl;
+
+  cout << si << endl;
+  cout << sf << endl;
+  cout << gi << endl;
+  cout << gf << endl;
+}
+
+function : void main()  {
+  funcs();
+  arrays();
+  structs();
+  misc();
+}
