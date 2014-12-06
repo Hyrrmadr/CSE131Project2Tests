@@ -155,6 +155,14 @@ function : void arrays() {
     ++i;
   }
   cout << endl;
+
+  foreach (int& i : a) { cout << " " << i; } cout << endl;
+  foreach (int i : a) { cout << " " << i; } cout << endl;
+  foreach (int i : a) { i = 4; } cout << endl;
+  foreach (int i : a) { cout << " " << i; } cout << endl;
+  foreach (int& i : a) { i = 4; } cout << endl;
+  foreach (int i : a) { cout << " " << i; } cout << endl;
+  foreach (int& i : a) { cout << " " << i; } cout << endl;
 }
 
 structdef CAL {

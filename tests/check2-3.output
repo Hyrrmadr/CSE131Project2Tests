@@ -69,6 +69,13 @@ ARRAYS
  0.01 0.01 0.01 -5.55 -5.55
  false true true false true
  2 2.22 true 3 2.22 false 3 2.22 false 2 3.33 true 2 3.33 false
+ 2 3 3 2 2
+ 2 3 3 2 2
+
+ 2 3 3 2 2
+
+ 4 4 4 4 4
+ 4 4 4 4 4
 STRUCTS
 dump 0, 0.00, false
 bar
@@ -127,7 +134,7 @@ foo 45
 dump 0, 0.00, false
 dump 45, 0.00, false
 MISC
-2
+4
 0.01
 0
 0.00
