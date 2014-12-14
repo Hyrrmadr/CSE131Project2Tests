@@ -1,0 +1,27 @@
+
+int i = 1;
+int[50] a;
+
+function : int foo(int n) {
+  cout << n << endl;
+  a[i++] = n;
+  return n * a[i - 2];
+}
+
+function : int main() {
+  int n1 = foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(5) + 3) + 2) + 1) + 0) - 1) - 2) - 3) - 4) - 5) - 6) - 7) - 8) - 9)));
+  cout << n1 << endl;
+
+  cout << a[49 + a[48 + a[47 + a[46 + a[45 + a[44 + a[43 + a[42 + a[41 + a[40]]]]]]]]]] << endl;
+  cout << i - 5 + a[a[a[1]] / (a[0] + a[1]) / 5] << endl;
+  int n2 = a[i - 5 + a[a[a[1]] / (a[0] + a[1]) / 5] + a[49 + a[48 + a[47 + a[46 + a[45 + a[44 + a[43 + a[42 + a[41 + a[40]]]]]]]]]]];
+  cout << n2 << endl;
+
+  int i = 42;
+  float f = 34.0;
+
+  float n3 = (((i + f * (((i + f * (((i + f * (((i + f * a[i - 5 + a[a[a[1]] / (a[0] + a[1]) / 5] + a[49 + a[48 + a[47 + a[46 + a[45 + a[44 + a[43 + a[42 + a[41 + a[40] + foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(foo(5) + 3) + 2) + 1) + 0) - 1) - 2) - 3) - 4) - 5) - 6) - 7) - 8) - 9))) * 0]]]]]]]]]] * f) / f + i) - (i % 33) + 45 / 23 - 23443.0) * f) / f + i) - (i % 33) + 45 / 23 - 23443.0) * f) / f + i) - (i % 33) + 45 / 23 - 23443.0) * f) / f + i) - (i % 33) + 45 / 23 - 23443.0);
+  cout << n3 << endl;
+
+  return 0;
+}

@@ -1,0 +1,234 @@
+// Credit to Rex West (https://piazza.com/class/hygqr9e9z2n643?cid=338)
+// A Weather Report Simulator for Tornadoes in Kansas and Oklahoma using the Mersenne Twister
+//
+// Tests several features of Reduced-C including:
+//     -Struct Function Pointers
+//     -Arrays of functions pointers
+//     -Calling directly on an element of an array of function pointers
+
+
+//Mersenne Twister port for Reduced-C
+//Original C source code: http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/MT2002/CODES/mt19937ar.c
+
+//Period parameters
+const int n = 624;
+const int m = 397;
+const int matrixa = 0x09908b0d;
+const int uppermask = 0x08000000;
+const int lowermask = 0x07ffffff;
+
+static int[n] mt;
+static int mti = n+1;
+
+//Shift Right
+function : int srl(int num, int bits)
+{
+  while(bits --> 0) { num = num / 2; }
+  return num;
+}
+
+//Shift Left
+function : int sll(int num, int bits)
+{
+  while(bits --> 0) { num = num * 2; }
+  return num;
+}
+
+
+//Initialize mt[n] with a seed
+function : void seed(int s)
+{
+    mt[0] = s & 0xffffffff;
+    mti = 1;
+    while(mti < n)
+    {
+        mt[mti] = (1812433253 * (mt[mti-1] ^ srl(mt[mti-1], 30)) + mti);
+        mt[mti] = mt[mti] & 0xffffffff;
+        ++mti;
+    }
+}
+
+//Generate a random number on [0,0x0fffffff] interval
+function : int random()
+{
+    int y;
+    int[2] mag01;
+    mag01[0] = 0x0;
+    mag01[1] = matrixa;
+
+    if(mti >= n)
+    {
+        int kk;
+
+        if(mti == n+1) { seed(0x133769); }
+
+    kk=0;
+        while(kk < (n-m))
+        {
+            y = (mt[kk] & uppermask) | (mt[kk+1] & lowermask);
+            mt[kk] = mt[kk+m] ^ srl(y, 1) ^ mag01[y & 0x1];
+          ++kk;
+        }
+
+        while(kk < (n-1))
+        {
+            y = (mt[kk] & uppermask) | (mt[kk+1] & lowermask);
+            mt[kk] = mt[kk+(m-n)] ^ srl(y, 1) ^ mag01[y & 0x1];
+            ++kk;
+        }
+
+        y = (mt[n-1] & uppermask) | (mt[0] & lowermask);
+        mt[n-1] = mt[m-1] ^ srl(y, 1) ^ mag01[y & 0x1];
+
+        mti = 0;
+    }
+
+    y = mt[mti++];
+
+    //Tempering: Place blade into the forge of the eternal flame.  Apply force as appropriate.
+    y = y ^ srl(y, 11);
+    y = y ^ (sll(y, 7) & 0x9d2c5680);
+    y = y ^ (sll(y, 15) & 0xefc60000);
+    y = y ^ srl(y, 18);
+
+    return y;
+}
+
+
+//Operator function typedef
+typedef funcptr : int (int x, int y) OPERATOR;
+
+//Functions
+const int storageSize = 71;
+const int operatorsSize = 7;
+const int halfMask = 0x00007fff;
+
+//A struct of functions, operator pointers, and accumulator storage
+structdef FUNCTIONS {
+
+  int[storageSize] storage;
+  OPERATOR[operatorsSize] operators;
+
+  function : int add(int x, int y)
+  {
+    int res = x + y;
+    while(res == 0) { res = random() & halfMask; }
+    this.storage[random() % storageSize] = res;
+    return this.storage[random() % storageSize];
+  }
+
+  function : int sub(int x, int y)
+  {
+    int res = x - y;
+    while(res == 0) { res = random() & halfMask; }
+    this.storage[random() % storageSize] = res;
+    return this.storage[random() % storageSize];
+  }
+
+  function : int mul(int x, int y)
+  {
+    int res = x * y;
+    while(res == 0) { res = random() & halfMask; }
+    this.storage[random() % storageSize] = res;
+    return this.storage[random() % storageSize];
+  }
+
+  function : int div(int x, int y)
+  {
+    int res = x / y;
+    while(res == 0) { res = random() & halfMask; }
+    this.storage[random() % storageSize] = res;
+    return this.storage[random() % storageSize];
+  }
+
+  function : int rem(int x, int y)
+  {
+    int res = x % y;
+    while(res == 0) { res = random() & halfMask; }
+    this.storage[random() % storageSize] = res;
+    return this.storage[random() % storageSize];
+  }
+
+  function : int and(int x, int y)
+  {
+    int res = x & y;
+    while(res == 0) { res = random() & halfMask; }
+    this.storage[random() % storageSize] = res;
+    return this.storage[random() % storageSize];
+  }
+
+  function : int or(int x, int y)
+  {
+    int res = x | y;
+    while(res == 0) { res = random() & halfMask; }
+    this.storage[random() % storageSize] = res;
+    return this.storage[random() % storageSize];
+  }
+
+  function : int xor(int x, int y)
+  {
+    int res = x ^ y;
+    while(res == 0) { res = random() & halfMask; }
+    this.storage[random() % storageSize] = res;
+    return this.storage[random() % storageSize];
+  }
+};
+
+
+function : void initializeFunctions(FUNCTIONS& functions)
+{
+  //Initialize the storage array
+  int index = storageSize;
+  while(index --> 0)
+  {
+    while((functions.storage[index] = (random() & halfMask)) == 0) { /* Herp and Derp */ }
+  }
+
+  //Initialize the operators array
+  functions.operators[0] = functions.add;
+  functions.operators[1] = functions.sub;
+  functions.operators[2] = functions.mul;
+  functions.operators[3] = functions.or;
+  functions.operators[4] = functions.xor;
+  functions.operators[5] = functions.rem;
+  functions.operators[6] = functions.and;
+}
+
+//Generate a random quadratic weighted index for the operators array
+function : int weightedIndex()
+{
+  float r1 = ((random() % operatorsSize)) / (float)operatorsSize;
+  return (int)((r1 * r1) * operatorsSize + 0.5);
+}
+
+function : int main()
+{
+  //Seed the random number generator
+  seed(0xBADC0DE);
+
+  //Setup the functions structure
+  FUNCTIONS functions;
+  initializeFunctions(functions);
+
+  //Temporary result storage
+  int[4] acc;
+  acc[2] = random() % 43 + 7;
+  acc[3] = random() % 29 + 13;
+
+  //Get twistin'!
+  int rounds = 173;
+  while(rounds --> 0)
+  {
+    acc[0] = acc[2];
+    acc[1] = acc[3];
+
+    acc[2] = functions.operators[weightedIndex()](acc[0], acc[1]) & halfMask;
+    acc[3] = functions.operators[weightedIndex()](acc[0], acc[1]) & halfMask;
+  }
+
+  cout << "Weather Report:" << endl;
+  cout << "\t" << "There will be " << acc[2] << " tornadoes in Kansas this year." << endl;
+  cout << "\t" << "There will be " << acc[3] << " tornadoes in Oklahoma this year." << endl;
+
+  return 0;
+}
