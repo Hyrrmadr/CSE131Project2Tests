@@ -1,0 +1,71 @@
+const int arraysize = 14;
+
+structdef FLOAT {
+        float value;
+        FLOAT* floatPtr;
+};
+
+structdef MYSTRUCT {
+        int a, b;
+        float c;
+        bool d, e, f;
+        FLOAT[arraysize] g;
+        bool h;
+        float[7] i;
+        int[2] j;
+
+        function : int fibonacci(int n)
+        {
+                if(n <= 1)
+                {
+                        return 1;
+                }
+
+                return this.fibonacci(n-1) + this.fibonacci(n-2);
+        }
+
+        function : void foldFac(int n, int acc)
+        {
+                if(n <= 0)
+                {
+                        this.b = acc;
+                        return;
+                }
+
+                this.foldFac(n-1, acc * n);
+        }
+
+        function : int factorial(int n)
+        {
+                this.foldFac(n, 1);
+                return this.b;
+        }
+
+};
+
+function : void initializeA(MYSTRUCT[arraysize]& mys)
+{
+        int i = 1;
+        mys[0].a = 0;
+
+        while(i < arraysize)
+        {
+    ++i;
+                mys[mys[i-2].a + 1].a = mys[i-2].a + 1;
+        }
+}
+
+function : int main()
+{
+       MYSTRUCT[arraysize] mys;
+
+       initializeA(mys);
+
+       foreach(MYSTRUCT& my : mys)
+       {
+                cout << "Factorial of " << my.a << " is " << my.factorial(my.a) << endl;
+                cout << "Fibonacci of " << (my.a * 2) << " is " << my.fibonacci(my.a * 2) << endl;
+       }
+
+       return 0;
+}

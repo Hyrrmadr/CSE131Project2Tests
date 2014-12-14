@@ -1,0 +1,409 @@
+// Credit to Mingtao Yang (https://piazza.com/class/hygqr9e9z2n643?cid=309)
+
+extern int navyseal;
+
+function : void printChar(int x) {
+    if (x == 33) {
+        cout << "!";
+    } else {
+        if (x == 34) {
+            cout << "'"; // because idk how to double quote
+        } else {
+            if (x == 35) {
+                cout << "#";
+            } else {
+                if (x == 36) {
+                    cout << "$";
+                } else {
+                    if (x == 37) {
+                        cout << "%";
+                    } else {
+                        if (x == 38) {
+                            cout << "&";
+                        } else {
+                            if (x == 39) {
+                                cout << "'";
+                            } else {
+                                if (x == 40) {
+                                    cout << "(";
+                                } else {
+                                    if (x == 41) {
+                                        cout << ")";
+                                    } else {
+                                        if (x == 42) {
+                                            cout << "*";
+                                        } else {
+                                            if (x == 43) {
+                                                cout << "+";
+                                            } else {
+                                                if (x == 44) {
+                                                    cout << ",";
+                                                } else {
+                                                    if (x == 45) {
+                                                        cout << "-";
+                                                    } else {
+                                                        if (x == 46) {
+                                                            cout << ".";
+                                                        } else {
+                                                            if (x == 47) {
+                                                                cout << "/";
+                                                            } else {
+                                                                if (x == 48) {
+                                                                    cout << "0";
+                                                                } else {
+                                                                    if (x == 49) {
+                                                                        cout << "1";
+                                                                    } else {
+                                                                        if (x == 50) {
+                                                                            cout << "2";
+                                                                        } else {
+                                                                            if (x == 51) {
+                                                                                cout << "3";
+                                                                            } else {
+                                                                                if (x == 52) {
+                                                                                    cout << "4";
+                                                                                } else {
+                                                                                    if (x == 53) {
+                                                                                        cout << "5";
+                                                                                    } else {
+                                                                                        if (x == 54) {
+                                                                                            cout << "6";
+                                                                                        } else {
+                                                                                            if (x == 55) {
+                                                                                                cout << "7";
+                                                                                            } else {
+                                                                                                if (x == 56) {
+                                                                                                    cout << "8";
+                                                                                                } else {
+                                                                                                    if (x == 57) {
+                                                                                                        cout << "9";
+                                                                                                    } else {
+                                                                                                        if (x == 58) {
+                                                                                                            cout << ":";
+                                                                                                        } else {
+                                                                                                            if (x == 59) {
+                                                                                                                cout << ";";
+                                                                                                            } else {
+                                                                                                                if (x == 60) {
+                                                                                                                    cout << "<";
+                                                                                                                } else {
+                                                                                                                    if (x == 61) {
+                                                                                                                        cout << "=";
+                                                                                                                    } else {
+                                                                                                                        if (x == 62) {
+                                                                                                                            cout << ">";
+                                                                                                                        } else {
+                                                                                                                            if (x == 63) {
+                                                                                                                                cout << "?";
+                                                                                                                            } else {
+                                                                                                                                if (x == 64) {
+                                                                                                                                    cout << "@";
+                                                                                                                                } else {
+                                                                                                                                    if (x == 65) {
+                                                                                                                                        cout << "A";
+                                                                                                                                    } else {
+                                                                                                                                        if (x == 66) {
+                                                                                                                                            cout << "B";
+                                                                                                                                        } else {
+                                                                                                                                            if (x == 67) {
+                                                                                                                                                cout << "C";
+                                                                                                                                            } else {
+                                                                                                                                                if (x == 68) {
+                                                                                                                                                    cout << "D";
+                                                                                                                                                } else {
+                                                                                                                                                    if (x == 69) {
+                                                                                                                                                        cout << "E";
+                                                                                                                                                    } else {
+                                                                                                                                                        if (x == 70) {
+                                                                                                                                                            cout << "F";
+                                                                                                                                                        } else {
+                                                                                                                                                            if (x == 71) {
+                                                                                                                                                                cout << "G";
+                                                                                                                                                            } else {
+                                                                                                                                                                if (x == 72) {
+                                                                                                                                                                    cout << "H";
+                                                                                                                                                                } else {
+                                                                                                                                                                    if (x == 73) {
+                                                                                                                                                                        cout << "I";
+                                                                                                                                                                    } else {
+                                                                                                                                                                        if (x == 74) {
+                                                                                                                                                                            cout << "J";
+                                                                                                                                                                        } else {
+                                                                                                                                                                            if (x == 75) {
+                                                                                                                                                                                cout << "K";
+                                                                                                                                                                            } else {
+                                                                                                                                                                                if (x == 76) {
+                                                                                                                                                                                    cout << "L";
+                                                                                                                                                                                } else {
+                                                                                                                                                                                    if (x == 77) {
+                                                                                                                                                                                        cout << "M";
+                                                                                                                                                                                    } else {
+                                                                                                                                                                                        if (x == 78) {
+                                                                                                                                                                                            cout << "N";
+                                                                                                                                                                                        } else {
+                                                                                                                                                                                            if (x == 79) {
+                                                                                                                                                                                                cout << "O";
+                                                                                                                                                                                            } else {
+                                                                                                                                                                                                if (x == 80) {
+                                                                                                                                                                                                    cout << "P";
+                                                                                                                                                                                                } else {
+                                                                                                                                                                                                    if (x == 81) {
+                                                                                                                                                                                                        cout << "Q";
+                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                        if (x == 82) {
+                                                                                                                                                                                                            cout << "R";
+                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                            if (x == 83) {
+                                                                                                                                                                                                                cout << "S";
+                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                if (x == 84) {
+                                                                                                                                                                                                                    cout << "T";
+                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                    if (x == 85) {
+                                                                                                                                                                                                                        cout << "U";
+                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                        if (x == 86) {
+                                                                                                                                                                                                                            cout << "V";
+                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                            if (x == 87) {
+                                                                                                                                                                                                                                cout << "W";
+                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                if (x == 88) {
+                                                                                                                                                                                                                                    cout << "X";
+                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                    if (x == 89) {
+                                                                                                                                                                                                                                        cout << "Y";
+                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                        if (x == 90) {
+                                                                                                                                                                                                                                            cout << "Z";
+                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                            if (x == 91) {
+                                                                                                                                                                                                                                                cout << "[";
+                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                if (x == 92) {
+                                                                                                                                                                                                                                                    cout << "/"; // because idk how to backslash
+                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                    if (x == 93) {
+                                                                                                                                                                                                                                                        cout << "]";
+                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                        if (x == 94) {
+                                                                                                                                                                                                                                                            cout << "^";
+                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                            if (x == 95) {
+                                                                                                                                                                                                                                                                cout << "_";
+                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                if (x == 96) {
+                                                                                                                                                                                                                                                                    cout << "`";
+                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                    if (x == 97) {
+                                                                                                                                                                                                                                                                        cout << "a";
+                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                        if (x == 98) {
+                                                                                                                                                                                                                                                                            cout << "b";
+                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                            if (x == 99) {
+                                                                                                                                                                                                                                                                                cout << "c";
+                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                if (x == 100) {
+                                                                                                                                                                                                                                                                                    cout << "d";
+                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                    if (x == 101) {
+                                                                                                                                                                                                                                                                                        cout << "e";
+                                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                                        if (x == 102) {
+                                                                                                                                                                                                                                                                                            cout << "f";
+                                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                                            if (x == 103) {
+                                                                                                                                                                                                                                                                                                cout << "g";
+                                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                                if (x == 104) {
+                                                                                                                                                                                                                                                                                                    cout << "h";
+                                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                                    if (x == 105) {
+                                                                                                                                                                                                                                                                                                        cout << "i";
+                                                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                                                        if (x == 106) {
+                                                                                                                                                                                                                                                                                                            cout << "j";
+                                                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                                                            if (x == 107) {
+                                                                                                                                                                                                                                                                                                                cout << "k";
+                                                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                                                if (x == 108) {
+                                                                                                                                                                                                                                                                                                                    cout << "l";
+                                                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                                                    if (x == 109) {
+                                                                                                                                                                                                                                                                                                                        cout << "m";
+                                                                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                                                                        if (x == 110) {
+                                                                                                                                                                                                                                                                                                                            cout << "n";
+                                                                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                                                                            if (x == 111) {
+                                                                                                                                                                                                                                                                                                                                cout << "o";
+                                                                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                                                                if (x == 112) {
+                                                                                                                                                                                                                                                                                                                                    cout << "p";
+                                                                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                                                                    if (x == 113) {
+                                                                                                                                                                                                                                                                                                                                        cout << "q";
+                                                                                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                                                                                        if (x == 114) {
+                                                                                                                                                                                                                                                                                                                                            cout << "r";
+                                                                                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                                                                                            if (x == 115) {
+                                                                                                                                                                                                                                                                                                                                                cout << "s";
+                                                                                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                                                                                if (x == 116) {
+                                                                                                                                                                                                                                                                                                                                                    cout << "t";
+                                                                                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                                                                                    if (x == 117) {
+                                                                                                                                                                                                                                                                                                                                                        cout << "u";
+                                                                                                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                                                                                                        if (x == 118) {
+                                                                                                                                                                                                                                                                                                                                                            cout << "v";
+                                                                                                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                                                                                                            if (x == 119) {
+                                                                                                                                                                                                                                                                                                                                                                cout << "w";
+                                                                                                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                                                                                                if (x == 120) {
+                                                                                                                                                                                                                                                                                                                                                                    cout << "x";
+                                                                                                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                                                                                                    if (x == 121) {
+                                                                                                                                                                                                                                                                                                                                                                        cout << "y";
+                                                                                                                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                                                                                                                        if (x == 122) {
+                                                                                                                                                                                                                                                                                                                                                                            cout << "z";
+                                                                                                                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                                                                                                                            if (x == 123) {
+                                                                                                                                                                                                                                                                                                                                                                                cout << "{";
+                                                                                                                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                                                                                                                if (x == 124) {
+                                                                                                                                                                                                                                                                                                                                                                                    cout << "|";
+                                                                                                                                                                                                                                                                                                                                                                                } else {
+                                                                                                                                                                                                                                                                                                                                                                                    if (x == 125) {
+                                                                                                                                                                                                                                                                                                                                                                                        cout << "}";
+                                                                                                                                                                                                                                                                                                                                                                                    } else {
+                                                                                                                                                                                                                                                                                                                                                                                        if (x == 126) {
+                                                                                                                                                                                                                                                                                                                                                                                            cout << "~";
+                                                                                                                                                                                                                                                                                                                                                                                        } else {
+                                                                                                                                                                                                                                                                                                                                                                                            if (x == 32) {
+                                                                                                                                                                                                                                                                                                                                                                                                cout << " ";
+                                                                                                                                                                                                                                                                                                                                                                                            } else {
+                                                                                                                                                                                                                                                                                                                                                                                                cout << x << endl;
+                                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                }
+                                                                                                                                                                                            }
+                                                                                                                                                                                        }
+                                                                                                                                                                                    }
+                                                                                                                                                                                }
+                                                                                                                                                                            }
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+                                                                                                                                                                }
+                                                                                                                                                            }
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function : void printString(int* string) {
+  while (*string != 0) {
+    int word = *string;
+
+    int char1 = (word & -16777216) / (0x01000000);
+    int char2 = (word & 0x00FF0000) / (0x00010000);
+    int char3 = (word & 0x0000FF00) / (0x00000100);
+    int char4 = (word & 0x000000FF) / (0x00000001);
+
+    printChar(char1);
+    printChar(char2);
+    printChar(char3);
+    printChar(char4);
+    string++;
+  }
+  cout << endl;
+}
+
+function : void main() {
+    printString((int*) navyseal);
+}

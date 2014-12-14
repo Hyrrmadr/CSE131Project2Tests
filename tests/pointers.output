@@ -1,0 +1,142 @@
+Local Ints: 
+	x = 1: 1
+	x = 3: 3
+	y = 4: 4
+	y = 10: 10
+	*ptr = 10: 10
+	x = 3: 3
+	x = 5: 5
+	**double_ptr = 5: 5
+	x = 5: 5
+	x = 7: 7
+	***triple_ptr = 7: 7
+	***triple_ptr + **double_ptr + *ptr: 21 = 21
+	added: 21 = 21
+	++(***triple_ptr) : 8 = 8
+	***triple_ptr : 9 = 9
+	x : 9 = 9
+	***triple_ptr : 10 = 10
+	***triple_ptr : 11 = 11
+	***triple_ptr + **double_ptr + *ptr: 39 = 39
+	++(***triple_ptr) : 12 = 12
+	(***triple_ptr) : 11 = 11
+	(***triple_ptr) : 10 = 10
+
+Global Ints: 
+	gx: 20 = 20
+	gx: 15 = 15
+	*gptr1: 15 = 15
+	gx: 10 = 10
+	**gptr2: 10 = 10
+	gx: 5 = 5
+	***gptr3: 5 = 5
+	gx2: 5 = 5
+	***gptr3 + **gptr2 + *ptr: 15 = 15
+	added: 15 = 15
+	++(***gptr3) : 6 = 6
+	***gptr3 : 7 = 7
+	x : 5 = 5
+	***gptr3 : 8 = 8
+	***gptr3 : 9 = 9
+	***gptr3 : 9 = 9
+	***gptr3 : 7 = 7
+	gx: 5 = 5
+	gx2: 7 = 7
+
+XXX Global On Local Int Action XXX: 
+	gx: 5 = 5
+	*ptr1o1: 5 = 5
+	*ptr2o1: 5 = 5
+	gx: 10 = 10
+	*ptr1o1: 10 = 10
+	*ptr2o1: 10 = 10
+	gx: 20 = 20
+	*ptr1o1: 20 = 20
+	*ptr2o1: 20 = 20
+	lx: 100 = 100
+	*gptr1: 100 = 100
+	**gptr2: 100 = 100
+	lx: 50 = 50
+	*gptr1: 50 = 50
+	**gptr2: 50 = 50
+	lx: 150 = 150
+	*gptr1: 150 = 150
+	**gptr2: 150 = 150
+
+Global Statics Ints: 
+	gsy: 30 = 30
+	gsy: 40 = 40
+	*gyptr1: 40 = 40
+	gsy: 65 = 65
+	**gyptr2: 65 = 65
+	gsy: 100 = 100
+	***gyptr3: 100 = 100
+	*gyptr1 + ++(**gyptr2) + (***gyptr3)--: 303 = 303
+	***gyptr3 : 100 = 100
+
+Local Statics Ints: 
+	lsi: 1333 = 1333
+	lsi: 1222 = 1222
+	*lsptr1: 1222 = 1222
+	lsi: 65 = 65
+	**lsptr2: 65 = 65
+	lsi: 100 = 100
+	***lsptr3: 100 = 100
+	*lsptr1 + ++(**lsptr2) + (***lsptr3)--: 303 = 303
+	***lsptr3 : 100 = 100
+
+Local Bools: 
+	b: true = true
+	*bptr1: true = true
+	**bptr2: true = true
+	b: false = false
+	*bptr1: false = false
+	**bptr2: false = false
+	b: true = true
+	*bptr1: true = true
+	**bptr2: true = true
+	a: false = false
+	*bptr12: false = false
+	*bptr1: true = true
+	*bptr1: false = false
+	!(*bptr1) : true = true
+	*bptr1 : false = false
+	(*bptr1 && **bptr2) || !(*bptr1) : true = true
+
+Local Floats Ops: 
+a: 1.55 = 1.55
+b: 2.55 = 2.55
+b + b = 5.10 = 5.10 = 5.10
+++(**aptrptr): 3.55 = 3.55
+(**aptrptr)++: 3.55 = 3.55
+**aptrptr: 4.55 = 4.55
+b * b = 20.70 = 20.70 = 20.70
+--(**aptrptr): 3.55 = 3.55
+(**aptrptr)--: 3.55 = 3.55
+**aptrptr: 2.55 = 2.55
+
+Global Floats Ops: 
+ga: 33.33 = 33.33
+gb: 66.67 = 66.67
+*gap 10.37 = 10.37
+*gbp: 10.37 = 10.37
+**gapp: 10.37 = 10.37
+**gbpp: 10.37 = 10.37
+gb + gb = 20.74 = 20.74 = 20.74
+++(**gapp): 11.37 = 11.37
+(**gapp)++: 11.37 = 11.37
+**gapp: 12.37 = 12.37
+gb * gb = 153.02 = 153.02 = 153.02
+--(**gbpp): 11.37 = 11.37
+(**gbpp)--: 11.37 = 11.37
+**gbpp: 10.37 = 10.37
+
+Static Floats Ops: 
+sb + sb = 0.62 = 0.62 = 0.62
+++(**sapp): 1.31 = 1.31
+(**sapp)++: 1.31 = 1.31
+**sapp: 2.31 = 2.31
+sb * sb = 5.34 = 5.34 = 5.34
+--(**sbpp): 1.31 = 1.31
+(**sbpp)--: 1.31 = 1.31
+**sbpp: 0.31 = 0.31

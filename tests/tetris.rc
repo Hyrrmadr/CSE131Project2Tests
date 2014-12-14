@@ -1,0 +1,614 @@
+/***************************************************************************\
+|*+-----------------------------------------------------------------------+*|
+|*|                                                                       |*|
+|*|  tetris.rc:  A Reduced-C version of Tetris that magically uses curses |*|
+|*|              CSE 131 :: Compiler Construction                         |*|
+|*|                                                                       |*|
+|*|  Author:     Garo Bournoutian, Winter 2012                            |*|
+|*|              (based heavily on Tetris for Terminals, by Mike Taylor)  |*|
+|*|                                                                       |*|
+|*|  Usage:      gcc helpers.c -c -o helpers.o                            |*|
+|*|              ./RC tetris.rc                                           |*|
+|*|              make compile LINKOBJ='helpers.o -lcurses'                |*|
+|*|              ./a.out                                                  |*|
+|*|                                                                       |*|
+|*+-----------------------------------------------------------------------+*|
+\***************************************************************************/
+
+
+/*********************
+* External Functions *
+*********************/
+// From helpers.c
+extern function : void registerDim(int depth, int width);
+extern function : void myrefresh();
+extern function : void clearArea();
+extern function : void updateScores();
+extern function : void setupCurses();
+extern function : void setupScreen(int leftKey, int rightKey, int rotateKey, int dropKey, int pauseKey, int quitKey);
+extern function : void removeCurses();
+extern function : int getAgain();
+extern function : void pauseGame();
+extern function : int getRandom(int max);
+extern function : int checkKeypress(int enabled, int timeout);
+extern function : int readCh();
+
+// From curses.h
+extern function : int refresh();
+extern function : int move(int y, int x);
+extern function : int mvaddstr(int y, int x, int *str);
+extern function : int mvaddch(int y, int x, int ch);
+extern function : int addch(int ch);
+
+// From unistd.h
+extern function : int usleep(int useconds);
+
+
+/*******************
+* Global Constants *
+*******************/
+const int cNumPieces  = 7;
+const int cNumOrients = 4;
+const int cNumSquares = 4;
+const int cNumMoves   = 4;
+const int cGameWidth  = 15;
+const int cGameDepth  = 20;
+const int cLeftKey    = 44;   /* ',' */
+const int cRightKey   = 47;   /* '/' */
+const int cRotateKey  = 46;   /* '.' */
+const int cDropKey    = 32;   /* ' ' */
+const int cPauseKey   = 115;  /* 's' */
+const int cQuitKey    = 113;  /* 'q' */
+const int cEmpty      = -1;
+const int cNextY      = 7;
+const int cNextX      = cGameWidth + 6;
+
+
+/***************
+* Struct Types *
+***************/
+structdef BOARDROW {
+    int[cGameWidth] col;
+};
+structdef BOARD {
+    BOARDROW[cGameDepth + 4] row;
+};
+
+structdef SQUARE {
+    int y;
+    int x;
+};
+structdef ORIENT {
+    SQUARE[cNumSquares] squares;
+};
+structdef PIECE {
+    int str;     /* Always only 3 bytes! */
+    int points;
+    ORIENT[cNumOrients] orients;
+};
+
+
+/*******************
+* Global Variables *
+*******************/
+int numPieces;
+int numLevels;
+int score;
+
+
+/*******************
+* Static Variables *
+*******************/
+static BOARD board;
+static PIECE[cNumPieces] pieces;
+static int eraseStr = 538968064;  /* 0x20200000 --> "  " */
+
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+////  F U N C T I O N S //////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+function : void setupPieces() {
+    /* Square piece */
+    pieces[0].str = 1532821504;  /* 0x5B5D0000 --> "[]" */
+    pieces[0].points = 4;
+    pieces[0].orients[0].squares[0].y = 0;
+    pieces[0].orients[0].squares[0].x = 0;
+    pieces[0].orients[0].squares[1].y = 0;
+    pieces[0].orients[0].squares[1].x = 1;
+    pieces[0].orients[0].squares[2].y = 1;
+    pieces[0].orients[0].squares[2].x = 0;
+    pieces[0].orients[0].squares[3].y = 1;
+    pieces[0].orients[0].squares[3].x = 1;
+    pieces[0].orients[1].squares[0].y = 0;
+    pieces[0].orients[1].squares[0].x = 0;
+    pieces[0].orients[1].squares[1].y = 0;
+    pieces[0].orients[1].squares[1].x = 1;
+    pieces[0].orients[1].squares[2].y = 1;
+    pieces[0].orients[1].squares[2].x = 0;
+    pieces[0].orients[1].squares[3].y = 1;
+    pieces[0].orients[1].squares[3].x = 1;
+    pieces[0].orients[2].squares[0].y = 0;
+    pieces[0].orients[2].squares[0].x = 0;
+    pieces[0].orients[2].squares[1].y = 0;
+    pieces[0].orients[2].squares[1].x = 1;
+    pieces[0].orients[2].squares[2].y = 1;
+    pieces[0].orients[2].squares[2].x = 0;
+    pieces[0].orients[2].squares[3].y = 1;
+    pieces[0].orients[2].squares[3].x = 1;
+    pieces[0].orients[3].squares[0].y = 0;
+    pieces[0].orients[3].squares[0].x = 0;
+    pieces[0].orients[3].squares[1].y = 0;
+    pieces[0].orients[3].squares[1].x = 1;
+    pieces[0].orients[3].squares[2].y = 1;
+    pieces[0].orients[3].squares[2].x = 0;
+    pieces[0].orients[3].squares[3].y = 1;
+    pieces[0].orients[3].squares[3].x = 1;
+
+    /* Long piece */
+    pieces[1].str = 1010696192;  /* 0x3C3E0000 --> "<>" */
+    pieces[1].points = 2;
+    pieces[1].orients[0].squares[0].y = 0;
+    pieces[1].orients[0].squares[0].x = 0;
+    pieces[1].orients[0].squares[1].y = 1;
+    pieces[1].orients[0].squares[1].x = 0;
+    pieces[1].orients[0].squares[2].y = 2;
+    pieces[1].orients[0].squares[2].x = 0;
+    pieces[1].orients[0].squares[3].y = 3;
+    pieces[1].orients[0].squares[3].x = 0;
+    pieces[1].orients[1].squares[0].y = 1;
+    pieces[1].orients[1].squares[0].x = -1;
+    pieces[1].orients[1].squares[1].y = 1;
+    pieces[1].orients[1].squares[1].x = 0;
+    pieces[1].orients[1].squares[2].y = 1;
+    pieces[1].orients[1].squares[2].x = 1;
+    pieces[1].orients[1].squares[3].y = 1;
+    pieces[1].orients[1].squares[3].x = 2;
+    pieces[1].orients[2].squares[0].y = 0;
+    pieces[1].orients[2].squares[0].x = 0;
+    pieces[1].orients[2].squares[1].y = 1;
+    pieces[1].orients[2].squares[1].x = 0;
+    pieces[1].orients[2].squares[2].y = 2;
+    pieces[1].orients[2].squares[2].x = 0;
+    pieces[1].orients[2].squares[3].y = 3;
+    pieces[1].orients[2].squares[3].x = 0;
+    pieces[1].orients[3].squares[0].y = 1;
+    pieces[1].orients[3].squares[0].x = -1;
+    pieces[1].orients[3].squares[1].y = 1;
+    pieces[1].orients[3].squares[1].x = 0;
+    pieces[1].orients[3].squares[2].y = 1;
+    pieces[1].orients[3].squares[2].x = 1;
+    pieces[1].orients[3].squares[3].y = 1;
+    pieces[1].orients[3].squares[3].x = 2;
+
+    /* L-shaped piece */
+    pieces[2].str = 673775616;  /* 0x28290000 --> "()" */
+    pieces[2].points = 3;
+    pieces[2].orients[0].squares[0].y = 0;
+    pieces[2].orients[0].squares[0].x = 0;
+    pieces[2].orients[0].squares[1].y = 1;
+    pieces[2].orients[0].squares[1].x = 0;
+    pieces[2].orients[0].squares[2].y = 2;
+    pieces[2].orients[0].squares[2].x = 0;
+    pieces[2].orients[0].squares[3].y = 2;
+    pieces[2].orients[0].squares[3].x = 1;
+    pieces[2].orients[1].squares[0].y = 0;
+    pieces[2].orients[1].squares[0].x = 1;
+    pieces[2].orients[1].squares[1].y = 1;
+    pieces[2].orients[1].squares[1].x = -1;
+    pieces[2].orients[1].squares[2].y = 1;
+    pieces[2].orients[1].squares[2].x = 0;
+    pieces[2].orients[1].squares[3].y = 1;
+    pieces[2].orients[1].squares[3].x = 1;
+    pieces[2].orients[2].squares[0].y = 0;
+    pieces[2].orients[2].squares[0].x = -1;
+    pieces[2].orients[2].squares[1].y = 0;
+    pieces[2].orients[2].squares[1].x = 0;
+    pieces[2].orients[2].squares[2].y = 1;
+    pieces[2].orients[2].squares[2].x = 0;
+    pieces[2].orients[2].squares[3].y = 2;
+    pieces[2].orients[2].squares[3].x = 0;
+    pieces[2].orients[3].squares[0].y = 1;
+    pieces[2].orients[3].squares[0].x = -1;
+    pieces[2].orients[3].squares[1].y = 1;
+    pieces[2].orients[3].squares[1].x = 0;
+    pieces[2].orients[3].squares[2].y = 1;
+    pieces[2].orients[3].squares[2].x = 1;
+    pieces[2].orients[3].squares[3].y = 2;
+    pieces[2].orients[3].squares[3].x = -1;
+
+    /* Backwards L-shaped piece */
+    pieces[3].str = 2071789568;  /* 0x7B7D0000 --> "{}" */
+    pieces[3].points = 3;
+    pieces[3].orients[0].squares[0].y = 0;
+    pieces[3].orients[0].squares[0].x = 0;
+    pieces[3].orients[0].squares[1].y = 1;
+    pieces[3].orients[0].squares[1].x = 0;
+    pieces[3].orients[0].squares[2].y = 2;
+    pieces[3].orients[0].squares[2].x = -1;
+    pieces[3].orients[0].squares[3].y = 2;
+    pieces[3].orients[0].squares[3].x = 0;
+    pieces[3].orients[1].squares[0].y = 1;
+    pieces[3].orients[1].squares[0].x = -1;
+    pieces[3].orients[1].squares[1].y = 1;
+    pieces[3].orients[1].squares[1].x = 0;
+    pieces[3].orients[1].squares[2].y = 1;
+    pieces[3].orients[1].squares[2].x = 1;
+    pieces[3].orients[1].squares[3].y = 2;
+    pieces[3].orients[1].squares[3].x = 1;
+    pieces[3].orients[2].squares[0].y = 0;
+    pieces[3].orients[2].squares[0].x = 0;
+    pieces[3].orients[2].squares[1].y = 0;
+    pieces[3].orients[2].squares[1].x = 1;
+    pieces[3].orients[2].squares[2].y = 1;
+    pieces[3].orients[2].squares[2].x = 0;
+    pieces[3].orients[2].squares[3].y = 2;
+    pieces[3].orients[2].squares[3].x = 0;
+    pieces[3].orients[3].squares[0].y = 0;
+    pieces[3].orients[3].squares[0].x = -1;
+    pieces[3].orients[3].squares[1].y = 1;
+    pieces[3].orients[3].squares[1].x = -1;
+    pieces[3].orients[3].squares[2].y = 1;
+    pieces[3].orients[3].squares[2].x = 0;
+    pieces[3].orients[3].squares[3].y = 1;
+    pieces[3].orients[3].squares[3].x = 1;
+
+    /* T-shaped piece */
+    pieces[4].str = 589496320;  /* 0x23230000 --> "##" */
+    pieces[4].points = 1;
+    pieces[4].orients[0].squares[0].y = 1;
+    pieces[4].orients[0].squares[0].x = -1;
+    pieces[4].orients[0].squares[1].y = 1;
+    pieces[4].orients[0].squares[1].x = 0;
+    pieces[4].orients[0].squares[2].y = 1;
+    pieces[4].orients[0].squares[2].x = 1;
+    pieces[4].orients[0].squares[3].y = 2;
+    pieces[4].orients[0].squares[3].x = 0;
+    pieces[4].orients[1].squares[0].y = 0;
+    pieces[4].orients[1].squares[0].x = 0;
+    pieces[4].orients[1].squares[1].y = 1;
+    pieces[4].orients[1].squares[1].x = 0;
+    pieces[4].orients[1].squares[2].y = 1;
+    pieces[4].orients[1].squares[2].x = 1;
+    pieces[4].orients[1].squares[3].y = 2;
+    pieces[4].orients[1].squares[3].x = 0;
+    pieces[4].orients[2].squares[0].y = 0;
+    pieces[4].orients[2].squares[0].x = 0;
+    pieces[4].orients[2].squares[1].y = 1;
+    pieces[4].orients[2].squares[1].x = -1;
+    pieces[4].orients[2].squares[2].y = 1;
+    pieces[4].orients[2].squares[2].x = 0;
+    pieces[4].orients[2].squares[3].y = 1;
+    pieces[4].orients[2].squares[3].x = 1;
+    pieces[4].orients[3].squares[0].y = 0;
+    pieces[4].orients[3].squares[0].x = 0;
+    pieces[4].orients[3].squares[1].y = 1;
+    pieces[4].orients[3].squares[1].x = -1;
+    pieces[4].orients[3].squares[2].y = 1;
+    pieces[4].orients[3].squares[2].x = 0;
+    pieces[4].orients[3].squares[3].y = 2;
+    pieces[4].orients[3].squares[3].x = 0;
+
+    /* S-shaped piece */
+    pieces[5].str = 623181824;  /* 0x25250000 --> "%%" */
+    pieces[5].points = 5;
+    pieces[5].orients[0].squares[0].y = 0;
+    pieces[5].orients[0].squares[0].x = 0;
+    pieces[5].orients[0].squares[1].y = 0;
+    pieces[5].orients[0].squares[1].x = 1;
+    pieces[5].orients[0].squares[2].y = 1;
+    pieces[5].orients[0].squares[2].x = -1;
+    pieces[5].orients[0].squares[3].y = 1;
+    pieces[5].orients[0].squares[3].x = 0;
+    pieces[5].orients[1].squares[0].y = 0;
+    pieces[5].orients[1].squares[0].x = -1;
+    pieces[5].orients[1].squares[1].y = 1;
+    pieces[5].orients[1].squares[1].x = -1;
+    pieces[5].orients[1].squares[2].y = 1;
+    pieces[5].orients[1].squares[2].x = 0;
+    pieces[5].orients[1].squares[3].y = 2;
+    pieces[5].orients[1].squares[3].x = 0;
+    pieces[5].orients[2].squares[0].y = 0;
+    pieces[5].orients[2].squares[0].x = 0;
+    pieces[5].orients[2].squares[1].y = 0;
+    pieces[5].orients[2].squares[1].x = 1;
+    pieces[5].orients[2].squares[2].y = 1;
+    pieces[5].orients[2].squares[2].x = -1;
+    pieces[5].orients[2].squares[3].y = 1;
+    pieces[5].orients[2].squares[3].x = 0;
+    pieces[5].orients[3].squares[0].y = 0;
+    pieces[5].orients[3].squares[0].x = -1;
+    pieces[5].orients[3].squares[1].y = 1;
+    pieces[5].orients[3].squares[1].x = -1;
+    pieces[5].orients[3].squares[2].y = 1;
+    pieces[5].orients[3].squares[2].x = 0;
+    pieces[5].orients[3].squares[3].y = 2;
+    pieces[5].orients[3].squares[3].x = 0;
+
+    /* Backwards S-shaped piece */
+    pieces[6].str = 1077936128;  /* 0x40400000 --> "@@" */
+    pieces[6].points = 5;
+    pieces[6].orients[0].squares[0].y = 0;
+    pieces[6].orients[0].squares[0].x = -1;
+    pieces[6].orients[0].squares[1].y = 0;
+    pieces[6].orients[0].squares[1].x = 0;
+    pieces[6].orients[0].squares[2].y = 1;
+    pieces[6].orients[0].squares[2].x = 0;
+    pieces[6].orients[0].squares[3].y = 1;
+    pieces[6].orients[0].squares[3].x = 1;
+    pieces[6].orients[1].squares[0].y = 0;
+    pieces[6].orients[1].squares[0].x = 0;
+    pieces[6].orients[1].squares[1].y = 1;
+    pieces[6].orients[1].squares[1].x = -1;
+    pieces[6].orients[1].squares[2].y = 1;
+    pieces[6].orients[1].squares[2].x = 0;
+    pieces[6].orients[1].squares[3].y = 2;
+    pieces[6].orients[1].squares[3].x = -1;
+    pieces[6].orients[2].squares[0].y = 0;
+    pieces[6].orients[2].squares[0].x = -1;
+    pieces[6].orients[2].squares[1].y = 0;
+    pieces[6].orients[2].squares[1].x = 0;
+    pieces[6].orients[2].squares[2].y = 1;
+    pieces[6].orients[2].squares[2].x = 0;
+    pieces[6].orients[2].squares[3].y = 1;
+    pieces[6].orients[2].squares[3].x = 1;
+    pieces[6].orients[3].squares[0].y = 0;
+    pieces[6].orients[3].squares[0].x = 0;
+    pieces[6].orients[3].squares[1].y = 1;
+    pieces[6].orients[3].squares[1].x = -1;
+    pieces[6].orients[3].squares[2].y = 1;
+    pieces[6].orients[3].squares[2].x = 0;
+    pieces[6].orients[3].squares[3].y = 2;
+    pieces[6].orients[3].squares[3].x = -1;
+}
+
+function : void clearBoard() {
+    int i = 0;
+    while ( i < cGameDepth + 4 ) {
+        int j = 0;
+        while ( j < cGameWidth ) {
+            board.row[i].col[j] = cEmpty;
+            ++j;
+        }
+        ++i;
+    }
+}
+
+function : void drawRaw(int pieceNum, int orient, int y, int x, int *str) {
+    int i = 0;
+    while ( i < cNumSquares ) {
+        if ( y + pieces[pieceNum].orients[orient].squares[i].y >= 0 ) {
+            mvaddstr(y + pieces[pieceNum].orients[orient].squares[i].y, 
+                     (2*(x + pieces[pieceNum].orients[orient].squares[i].x))+2,
+                     str);
+        }
+        ++i;
+    }
+}
+
+function : void drawPiece(int pieceNum, int orient, int y, int x, bool eraseFlag) {
+    if ( eraseFlag ) {
+        drawRaw(pieceNum, orient, y, x, &eraseStr);
+    } else {
+        drawRaw(pieceNum, orient, y, x, &pieces[pieceNum].str);
+    }
+}
+
+function : void drawBoard() {
+    int i = 0;
+    while ( i < cGameDepth ) {
+        int j = 0;
+        while ( j < cGameWidth ) {
+            if ( board.row[i+4].col[j] == cEmpty ) {
+                mvaddch(i, 2*j + 2, 32);  /* ' ' */
+                addch(32);                /* ' ' */
+            } else {
+                mvaddstr(i, 2*j + 2, &pieces[board.row[i+4].col[j]].str);
+            }
+            ++j;
+        }
+        ++i;
+    }
+}
+
+function : void placePiece(int pieceNum, int orient, int y, int x) {
+    int i = 0;
+    while ( i < cNumSquares ) {
+        board.row[y+4+pieces[pieceNum].orients[orient].squares[i].y].col[x+pieces[pieceNum].orients[orient].squares[i].x] = pieceNum;
+        ++i;
+    }
+}
+
+function : bool canPlace(int pieceNum, int orient, int y, int x) {
+    int i = 0;
+    while ( i < cNumSquares ) {
+        if ( (x + pieces[pieceNum].orients[orient].squares[i].x >= cGameWidth) ||
+             (x + pieces[pieceNum].orients[orient].squares[i].x < 0) ||
+             (y + pieces[pieceNum].orients[orient].squares[i].y >= cGameDepth) ||
+             (board.row[y+4+pieces[pieceNum].orients[orient].squares[i].y].col[x+pieces[pieceNum].orients[orient].squares[i].x] != cEmpty) ) {
+            return false;
+        }
+        ++i;
+    }
+    return true;
+}
+
+function : void playGame() {
+    int i;
+    int j;
+    int k;
+    int pieceNum;
+    int orient;
+    static int nextPieceNum = 0;
+    static int nextOrient = 0;
+    int pressesLeft;
+    int totalTime = 400000;
+    int ch;
+
+    score = numLevels = numPieces = 0;
+    updateScores();
+    clearBoard();
+
+    nextPieceNum = getRandom(cNumPieces);
+    nextOrient = getRandom(cNumOrients);
+
+    while ( true ) {
+        pieceNum = nextPieceNum;
+        orient = nextOrient;
+        nextPieceNum = getRandom(cNumPieces);
+        nextOrient = getRandom(cNumOrients);
+
+        drawRaw(pieceNum, orient, cNextY, cNextX, &eraseStr);
+        drawRaw(nextPieceNum, nextOrient, cNextY, cNextX, &pieces[nextPieceNum].str);
+
+        i = -2;   /* Start falling from off-screen */
+        j = cGameWidth / 2;
+
+        if ( !canPlace(pieceNum, orient, i, j) ) {
+            k = 0;
+            while ( k < 9 ) {  /* Crude piece flashing */
+                drawPiece(pieceNum, orient, i, j, true);
+                myrefresh();
+                usleep(80000);
+                drawPiece(pieceNum, orient, i, j, false);
+                myrefresh();
+                usleep(80000);
+                ++k;
+            }
+            break;  /* End of game - piece won't fit */
+        }
+
+        while ( true ) {
+            pressesLeft = cNumMoves;
+            drawPiece(pieceNum, orient, i, j, false);
+            updateScores();
+            myrefresh();
+
+            while ( true ) {
+                if ( checkKeypress((int)((pressesLeft > 0) && (i >= 0)), totalTime) == 0 ) {
+                    break;
+                }
+                ch = readCh();
+                if ( (ch != cLeftKey) && (ch != cRightKey) &&
+                     (ch != cRotateKey) && (ch != cDropKey) &&
+                     (ch != cQuitKey) && (ch != cPauseKey) ) {
+                    continue;
+                }
+                --pressesLeft;
+                if ( ch == cLeftKey ) {
+                    if ( canPlace(pieceNum, orient, i, j - 1) ) {
+                        drawPiece(pieceNum, orient, i, j, true);
+                        drawPiece(pieceNum, orient, i, --j, false);
+                        myrefresh();
+                    }
+                }
+                if ( ch == cRightKey ) {
+                    if ( canPlace(pieceNum, orient, i, j + 1) ) {
+                        drawPiece(pieceNum, orient, i, j, true);
+                        drawPiece(pieceNum, orient, i, ++j, false);
+                        myrefresh();
+                    }
+                }
+                if ( ch == cRotateKey ) {
+                    int newOrient = (orient+1) % cNumOrients;
+                    if ( canPlace(pieceNum, newOrient, i, j) ) {
+                        drawPiece(pieceNum, orient, i, j, true);
+                        drawPiece(pieceNum, orient = newOrient, i, j, false);
+                        myrefresh();
+                    }
+                }
+                if ( ch == cDropKey ) {
+                    while ( canPlace(pieceNum, orient, i + 1, j) ) {
+                        drawPiece(pieceNum, orient, i, j, true);
+                        drawPiece(pieceNum, orient, ++i, j, false);
+                        myrefresh();
+                    }
+                    break;
+                }
+                if ( ch == cPauseKey ) {
+                    clearArea();
+                    pauseGame();
+                    drawBoard();
+                }
+                if ( ch == cQuitKey ) {
+                    return;
+                }
+            }
+
+            if ( !canPlace(pieceNum, orient, i + 1, j) ) {
+                placePiece(pieceNum, orient, i, j);
+                score = score + pieces[pieceNum].points;
+                ++numPieces;
+                updateScores();
+                myrefresh();
+
+                i = 0;
+                while ( i < cGameDepth ) {
+                    j = 0;
+                    while ( j < cGameWidth ) {
+                        if ( board.row[i+4].col[j] == cEmpty ) {
+                            break;
+                        }
+                        ++j;
+                    }
+
+                    if ( j == cGameWidth ) {
+                        ++numLevels;
+                        score = score + 10;
+                        updateScores();
+                        k = i;
+                        while ( k > 0 ) {
+                            j = 0;
+                            while ( j < cGameWidth ) {
+                                board.row[k+4].col[j] = board.row[k+3].col[j];
+                                ++j;
+                            }
+                            --k;
+                        }
+                        j = 0;
+                        while ( j < cGameWidth ) {
+                            board.row[4].col[j++] = cEmpty;
+                        }
+                        drawBoard();
+                        myrefresh();
+                        --i;
+                    }
+                    ++i;
+                }
+
+                break;    /* End of fall - piece has hit the floor */
+            }
+
+            drawPiece(pieceNum, orient, i, j, true);
+            ++i;
+        }
+
+        myrefresh();
+	/* Keep speeding up after each piece */
+        if ( totalTime != 0 ) {
+            totalTime = totalTime - 1000;
+        }
+    }
+}
+
+function : int main() {
+    registerDim(cGameDepth, cGameWidth);
+    setupPieces();
+    setupCurses();
+    setupScreen(cLeftKey, cRightKey, cRotateKey, cDropKey, cPauseKey, cQuitKey);
+    clearBoard();
+
+    while( true ) {
+        playGame();
+        if ( getAgain() != 0 ) {
+            break;
+        }
+
+        clearArea();
+    }
+
+    removeCurses();
+    return 0;
+}
