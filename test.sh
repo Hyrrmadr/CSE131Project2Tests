@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 #f_diff="--unified=30" # Damn you SPARC diff
+
+shopt -s nullglob
 
 display_error()
 {
@@ -101,6 +103,11 @@ launch()
     if [ -f "$fle.compile" ]; then
       compile="$fle.compile"
     fi
+    externs=""
+    externs_l=("$fle.*.c")
+    for ext in $externs_l; do
+      externs="$externs $ext"
+    done
 
     echo "--- Testing $src ---"
 
@@ -108,7 +115,7 @@ launch()
     result=$?
     if [ $result -eq 0 ]; then
       if [ "$compile" == "$good_compile" ]; then
-        make -s -C "$bindir" $rule
+        make -s -C "$bindir" $rule LINKOBJ="$externs"
 
         result=$?
         if [ $result -eq 0 ]; then

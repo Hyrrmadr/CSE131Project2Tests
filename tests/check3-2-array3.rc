@@ -1,0 +1,11 @@
+
+function : void test(int idx) {
+  int [7] arr;
+
+  arr[idx] = 3;
+}
+
+function : void main() {
+  test(0);
+  test(25);
+}

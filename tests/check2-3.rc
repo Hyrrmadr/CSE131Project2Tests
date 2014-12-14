@@ -163,6 +163,15 @@ function : void arrays() {
   foreach (int& i : a) { i = 4; } cout << endl;
   foreach (int i : a) { cout << " " << i; } cout << endl;
   foreach (int& i : a) { cout << " " << i; } cout << endl;
+
+  int l = 0;
+  foreach (int i : al) {
+    cout << " " << i;
+    foreach (int& j : al) {
+      cout << " " << j;
+    }
+    cout << endl;
+  } cout << endl;
 }
 
 structdef CAL {
@@ -290,6 +299,14 @@ function : void misc() {
   cout << sf << endl;
   cout << gi << endl;
   cout << gf << endl;
+
+  int[5000] big;
+
+  big[2000] = 3;
+
+  big[big[2000] * 10] = 25;
+
+  cout << big[30] << " " << big[2000] << endl;
 }
 
 function : void main()  {

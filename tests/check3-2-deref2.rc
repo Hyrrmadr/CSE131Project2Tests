@@ -1,0 +1,12 @@
+
+function : void test(int *ptr) {
+  *ptr = 4;
+}
+
+function : void main() {
+  int *p;
+  new p;
+
+  test(p);
+  test(nullptr);
+}

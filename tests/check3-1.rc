@@ -1,0 +1,249 @@
+
+structdef STR {
+  int i;
+  float f;
+  bool b;
+
+  function : void dump() {
+    cout << "dump " << this.i << ", " << this.f << ", " << this.b << endl;
+  }
+
+  function : void foo() {
+    this.i = 1337;
+    this.f = -5.55;
+    this.b = true;
+  }
+};
+
+int gi = 3;
+
+int* gptr = &gi;
+int* gptr2 = gptr;
+int* gptr3;
+int* gptr4 = nullptr;
+
+function : void pointers() {
+  cout << "POINTERS" << endl;
+
+  static int* ptr;
+
+  cout << "globals/statics" << endl;
+
+  cout << *gptr << endl;
+  cout << *gptr2 << endl;
+  //cout << gptr3 == nullptr << endl;
+  //cout << ptr == nullptr << endl;
+
+  gi = 5;
+
+  cout << *gptr << endl;
+  cout << *gptr2 << endl;
+
+  //cout << "locals" << endl;
+
+  int* iptr = nullptr;
+  float* fptr = nullptr;
+  bool* bptr = nullptr;
+  STR* sptr = nullptr;
+
+  int i = 42;
+  float f = 0.03;
+  bool b = true;
+  STR s;
+  s.i = 0;
+  s.f = 0;
+  s.b = false;
+
+  cout << "address-of" << endl;
+
+  iptr = &i;
+  fptr = &f;
+  bptr = &b;
+  sptr = &s;
+
+  cout << *iptr << endl;
+  cout << *fptr << endl;
+  cout << *bptr << endl;
+
+  i = 1;
+  f = 0.02;
+  b = false;
+
+  cout << *iptr << endl;
+  cout << *fptr << endl;
+  cout << *bptr << endl;
+
+  cout << "arrow" << endl;
+
+  sptr->dump();
+  sptr->foo();
+  sptr->dump();
+
+  cout << "inc/dec" << endl;
+
+  int[5] a;
+
+  a[0] = a[2] = a[4] = 1; a[1] = a[3] = 0;
+
+  foreach (int i : a) { cout << " " << i; } cout << endl;
+
+  iptr = a;
+
+  cout << *iptr << endl;
+  iptr++;
+  cout << *iptr << endl;
+  ++iptr;
+  cout << *iptr << endl;
+  *iptr = 3;
+  cout << *iptr << endl;
+  --iptr;
+  cout << *iptr << endl;
+  iptr--;
+  cout << *iptr << endl;
+
+  foreach (int i : a) { cout << " " << i; } cout << endl;
+
+  iptr = &a[4];
+  *iptr = 4;
+
+  foreach (int i : a) { cout << " " << i; } cout << endl;
+}
+
+function : int* min(int* a, int* b) {
+  cout << "min " << *a << ", " << *b << endl;
+  if (*a > *b) {
+    return b;
+  }
+  return a;
+}
+
+function : void init_array(int[7]& arr, int value) {
+  cout << "init_array ["; foreach (int i : arr) { cout << i << ","; } cout << "], " << value << endl;
+  foreach (int& i : arr) {
+    i = value;
+  }
+}
+
+function : void init_struct(STR& str, int value) {
+  cout << "init_struct " << value << ", str: "; str.dump();
+  str.i = value;
+  str.f = value / 2.0;
+  str.b = str.i == str.f;
+}
+
+function : void ptr_bs(int* ptr, int*& ptrr, int* value) {
+  cout << "ptr_bs " << *ptr << ", " << *ptrr << ", " << *value << endl;
+
+  ptr = value;
+  ptrr = value;
+
+  cout << "/ptr_bs " << *ptr << ", " << *ptrr << ", " << *value << endl;
+}
+
+function : int& max(int& a, int& b) {
+  cout << "max " << a << ", " << b << endl;
+  if (a > b) {
+    return a;
+  }
+  return b;
+}
+
+function : void funcs() {
+  cout << "FUNCS" << endl;
+
+  int *ptr, *ptrr;
+  int a = 2, b = 3, c = 34;
+  int[7] arr;
+  foreach (int& i : arr) { i = 0; }
+  STR s;
+  s.foo();
+
+  ptr = min(&a, &b);
+  cout << "res(min): " << *ptr << endl;
+
+  init_array(arr, 5);
+  cout << "res(init_array):"; foreach (int i : arr) { cout << " " << i; } cout << endl;
+
+  init_struct(s, 3);
+  cout << "res(init_struct): "; s.dump();
+
+  ptr = &a;
+  ptrr = &b;
+  ptr_bs(ptr, ptrr, &c);
+  cout << "res(ptr_bs): (" << *ptr << ", " << *ptrr << ")" << endl;
+
+  max(a, b) = 5;
+  cout << "res(max): (" << a << ", " << b << ")" << endl;
+}
+
+function : void alloc() {
+  cout << "ALLOC" << endl;
+
+  int* iptr = nullptr;
+  float* fptr = nullptr;
+  bool* bptr = nullptr;
+  STR* sptr = nullptr;
+
+  //cout << "new" << endl;
+
+  //cout << iptr == nullptr << endl;
+  //cout << fptr == nullptr << endl;
+  //cout << bptr == nullptr << endl;
+  //cout << sptr == nullptr << endl;
+
+  new iptr;
+  new fptr;
+  new bptr;
+  new sptr;
+
+  //cout << "---" << endl;
+
+  //cout << iptr == nullptr << endl;
+  //cout << fptr == nullptr << endl;
+  //cout << bptr == nullptr << endl;
+  //cout << sptr == nullptr << endl;
+
+  //cout << "value" << endl;
+
+  cout << *iptr << endl;
+  cout << *fptr << endl;
+  cout << *bptr << endl;
+  sptr->dump();
+
+  *iptr = 42;
+  *fptr = 0.01;
+  *bptr = true;
+  sptr->foo();
+
+  cout << "---" << endl;
+
+  cout << *iptr << endl;
+  cout << *fptr << endl;
+  cout << *bptr << endl;
+  sptr->dump();
+
+  //cout << "delete" << endl;
+
+  //cout << iptr == nullptr << endl;
+  //cout << fptr == nullptr << endl;
+  //cout << bptr == nullptr << endl;
+  //cout << sptr == nullptr << endl;
+
+  delete iptr;
+  delete fptr;
+  delete bptr;
+  delete sptr;
+
+  //cout << "---" << endl;
+
+  //cout << iptr == nullptr << endl;
+  //cout << fptr == nullptr << endl;
+  //cout << bptr == nullptr << endl;
+  //cout << sptr == nullptr << endl;
+}
+
+function : void main() {
+  pointers();
+  funcs();
+  alloc();
+}

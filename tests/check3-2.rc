@@ -1,0 +1,229 @@
+
+int* my_global = nullptr;
+
+extern int ext_var;
+
+static int my_static = 3;
+
+extern function : int hello(int i, bool b);
+
+function : bool world(int i) {
+  cout << "WORLD " << i << endl;
+  return false;
+}
+
+function : void externs() {
+  cout << "EXTERN" << endl;
+
+  cout << "Var1: " << ext_var << endl;
+  ext_var = 1337;
+  cout << "Var2: " << ext_var << endl;
+
+  cout << "my_static: " << my_static << endl;
+
+  int ret = hello(314, true);
+
+  cout << "Func: " << ret << endl;
+  cout << "my_global: " << *my_global << endl;
+}
+
+structdef STR {
+  bool b;
+  int i;
+  float f;
+
+  function : void init() {
+    this.b = true;
+    this.i = 42;
+    this.f = 3.14;
+  }
+
+  function : void reset() {
+    this.b = false;
+    this.i = 0;
+    this.f = 0.00;
+  }
+
+  function : void dump() {
+    cout << "dump " << this.i << ", " << this.f << ", " << this.b << endl;
+  }
+
+  function : int max(int i) {
+    if (i > this.i) {
+      return i;
+    }
+    return this.i;
+  }
+
+  function : int min(int i) {
+    if (i < this.i) {
+      return i;
+    }
+    return this.i;
+  }
+};
+
+function : int mul2(int i) {
+  return i * 2;
+}
+
+function : int mul3(int i) {
+  return i * 3;
+}
+
+funcptr : int(int a) sp_ptr = mul2;
+funcptr : void() lolptr = nullptr;
+
+function : void fptrs() {
+  cout << "FPTRS" << endl;
+
+  STR s;
+  static STR* sp = &s;
+
+  funcptr : void() vd_ptr = nullptr;
+
+  cout << "Simple" << endl;
+  cout << "1: " << sp_ptr(3) << endl;
+  sp_ptr = mul3;
+  cout << "2: " << sp_ptr(3) << endl;
+
+  cout << "Struct1" << endl;
+  vd_ptr = s.reset;
+  vd_ptr();
+  cout << "1: ";
+  vd_ptr = s.dump;
+  vd_ptr();
+  vd_ptr = sp->init;
+  vd_ptr();
+  cout << "2: ";
+  vd_ptr = sp->dump;
+  vd_ptr();
+
+  cout << "Struct2" << endl;
+  sp_ptr = s.min;
+  cout << "1: " << sp_ptr(3) << endl;
+  cout << "2: " << sp_ptr(100) << endl;
+  sp_ptr = sp->max;
+  cout << "3: " << sp_ptr(3) << endl;
+  cout << "4: " << sp_ptr(100) << endl;
+}
+
+int *gptr = (int*) 42;
+
+function : void casts() {
+  cout << "CASTS" << endl;
+
+  int i = 9;
+  float f = 1.99;
+  bool b;
+  int *ptr;
+  float *fptr;
+
+  cout << "Lil' test: " << (int) (i + f) << endl;
+
+  cout << "Compile" << endl;
+
+  cout << "Int: " << (int) 3.14 << ", " << (int) true << ", " << (int) false << ", " << (int) nullptr << endl;
+  cout << "Float: " << (float) 3 << ", " << (float) true << ", " << (float) false << ", " << (float) nullptr << endl;
+  cout << "Bool: " << (bool) 3 << ", " << (bool) -4.23 << ", " << (bool) nullptr << endl;
+  cout << "Ptr: " << (int) ((int*) 3) << ", " << (int) ((int*) 3.14) << ", " << (int) ((int*) true) << ", " << (int) ((int*) false) << ", " << (int) ((int*) nullptr) << endl;
+
+  cout << "From bool" << endl;
+
+  b = true;
+  i = (int) b;
+  f = (float) b;
+  ptr = (int*) b;
+  fptr = (float*) b;
+
+  cout << i << ", " << f << ", " << b << ", " << (int) ptr << ", " << (int) fptr << endl;
+
+  b = false;
+  i = (int) b;
+  f = (float) b;
+  ptr = (int*) b;
+  fptr = (float*) b;
+
+  cout << i << ", " << f << ", " << b << ", " << (int) ptr << ", " << (int) fptr << endl;
+
+  cout << "To bool" << endl;
+
+  i = 42;
+  f = -3.14;
+  ptr = &i;
+  fptr = nullptr;
+
+  cout << (bool) i << ", " << (bool) f << ", " << (bool) ptr << ", " << (bool) fptr << endl;
+
+  i = 0;
+  f = 0;
+  ptr = nullptr;
+  fptr = &f;
+
+  cout << (bool) i << ", " << (bool) f << ", " << (bool) ptr << ", " << (bool) fptr << endl;
+
+  cout << "From float" << endl;
+
+  f = -5.55;
+  i = (int) f;
+  ptr = (int*) f;
+  fptr = (float*) f;
+
+  cout << i << ", " << f << ", " << (int) ptr << ", " << (int) fptr << endl;
+
+  cout << "To float" << endl;
+
+  i = 3;
+  ptr = nullptr;
+  fptr = (float*) -56;
+
+  cout << (float) i << ", " << (float) ptr << ", " << (float) fptr << endl;
+
+  i = -42;
+  ptr = (int*) 456;
+  fptr = nullptr;
+
+  cout << (float) i << ", " << (float) ptr << ", " << (float) fptr << endl;
+
+  cout << "int/ptr" << endl;
+
+  i = 42;
+  ptr = (int*) i;
+  fptr = (float*) i;
+
+  cout << i << ", " << (int) ptr << ", " << (int) fptr << endl;
+
+  ptr = (int*) 1337;
+  i = (int) ptr;
+  fptr = (float*) ptr;
+
+  cout << i << ", " << (int) ptr << ", " << (int) fptr << endl;
+
+  cout << (int) gptr << endl;
+
+}
+
+function : void rtime_chcks() {
+  cout << "RTIME_CHCKS" << endl;
+
+  int i = 1;
+  int j = 2;
+  int k = i + j;
+
+  int[4] a;
+
+  a[k] = 2;
+
+  int *ptr = nullptr;
+
+  new ptr;
+  *ptr = 3;
+  delete ptr;
+}
+
+function : void main() {
+  externs();
+  fptrs();
+  casts();
+  rtime_chcks();
+}
