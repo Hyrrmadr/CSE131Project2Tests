@@ -1,0 +1,34 @@
+
+function : int* mymalloc() {
+  int *p;
+
+  new p;
+
+  return p;
+}
+
+function : void bye() {
+  int *p;
+
+  new p;
+
+  exit(2);
+
+  delete p;
+}
+
+function : void main() {
+  int *p;
+  int *r;
+  int *s;
+
+  r = s = p = mymalloc();
+  p = mymalloc();
+  delete s;
+
+  bye();
+
+  new r;
+  delete p;
+  delete r;
+}
