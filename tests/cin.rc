@@ -3,23 +3,23 @@
 int z;
 function : void main(){
   int x;
-  cout << "Enter int: " << endl;
+  cout << "Enter int:" << endl;
   cin >> x;
   cout << "int input: " << x << endl;
 
   float y;
-  cout << "Enter float: " << endl;
+  cout << "Enter float:" << endl;
   cin >> y;
   cout << "float input: " << y << endl;
 
   cin >> z;
-  cout << "Enter int: " << endl;
+  cout << "Enter int:" << endl;
   cout << "global input: " << z << endl;
 
   int[4] a;
   int c = 0;
   foreach(int i : a) {
-    cout << "Enter a[" << c << "]: " << endl;
+    cout << "Enter a[" << c << "]:" << endl;
     cin >> i;
     cout << i << endl;
     c = c + 1;

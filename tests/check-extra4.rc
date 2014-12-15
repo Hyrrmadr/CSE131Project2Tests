@@ -1,0 +1,45 @@
+function : bool foo(int a, int b) {
+     cout << "foo2 " << a << ", " << b << endl;
+     return true;
+}
+
+function : bool foo(float a, int b) {
+     cout << "foo1 " << a << ", " << b << endl;
+     return true;
+}
+
+function : bool foo(float a, float b) {
+     cout << "foo3 " << a << ", " << b << endl;
+     return true;
+}
+
+function : int bar(float a) {
+   cout << "bar1 " << a << endl;
+  return 2;
+}
+
+function : float bar(float a, float b, float c) {
+     cout << "bar2 " << a << ", " << b << ", " << c << endl;
+  return 2;
+}
+
+structdef MYS {
+  function : int x(int a) { cout << "x1 " << a << endl; return 0; }
+  function : int x(float b) { cout << "x2 " << b << endl; return 1; }
+};
+
+MYS s;
+
+function : int main() {
+  foo(1, 2);
+  foo(1.2, 2.3);
+  foo(1.2, 2);
+
+  bar(2.2);
+  bar(2.2, 3.3, 4.4);
+
+  s.x(4);
+  s.x(4.4);
+
+  return 0;
+}

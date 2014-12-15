@@ -22,6 +22,19 @@ Struct2
 2: 42
 3: 42
 4: 100
+More
+dump 42, 3.14, true
+dump 42, 3.14, true
+dump 42, 3.14, true
+dump 42, 3.14, true
+dump 0, 0.00, false
+dump 0, 0.00, false
+dump 0, 0.00, false
+ 1 1 1 1
+dump 0, 0.00, false
+dump 0, 0.00, false
+dump 0, 0.00, false
+ 1 1 1 1
 CASTS
 Lil' test: 10
 Compile
@@ -34,7 +47,7 @@ From bool
 0, 0.00, false, 0, 0
 To bool
 true, true, true, false
-false, false, false, true
+false, false, true
 From float
 -5, -5.55, -5, -5
 To float

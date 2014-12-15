@@ -1,0 +1,35 @@
+// Credit to Ren Lee (https://piazza.com/class/hygqr9e9z2n643?cid=344)
+
+typedef float FOO;
+typedef int BAZ;
+typedef FOO* RPTR;
+structdef MS {
+  MS* g;
+  BAZ j;
+};
+typedef MS* IPTR;
+int x;
+float y;
+IPTR z;
+typedef bool MB;
+typedef MB MBB;
+typedef int MI;
+typedef MI MII;
+
+function : void main()
+{
+  cout << (((MI) (((MB) (x = 1)) && true)) % 5) << endl;
+  new z;
+  new z->g;
+  cin >> y;
+  cin >> z->g->j;
+  x = (int) y;
+  cout << x << endl;
+  x = (int) (x + 5.9);
+  cout << x << endl;
+  y = (FOO) (int) (65.3);
+  cout << y << endl;
+  cout << (int) (IPTR) (z->g->j) << endl;
+  delete z->g;
+  delete z;
+}

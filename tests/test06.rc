@@ -1,0 +1,33 @@
+// Credit to Ren Lee (https://piazza.com/class/hygqr9e9z2n643?cid=344)
+
+typedef int* INTP;
+
+function : INTP f (INTP &p, INTP &q) {
+   delete p;
+   p = q;
+   return p;
+}
+
+function : int f2 (INTP &p) {
+   new p;
+   return *p;
+}
+
+INTP p;
+
+function : void main() {
+   INTP q, r;
+
+   f2(p); cout << p == nullptr;
+   new q;
+   cin >> *q;
+   cout << *p << *q << "\n";
+   r = f(p, q);
+   cout << *p << *q << *r << p==q << "\n";
+   cin >> *q;
+   cout << *p << *q << *r << q==r << "\n";
+   new p;
+   cout << *p << *q << *r << p==q << "\n";
+   delete r;
+   delete p;
+}

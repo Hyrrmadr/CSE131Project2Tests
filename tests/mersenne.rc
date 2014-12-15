@@ -227,8 +227,8 @@ function : int main()
   }
 
   cout << "Weather Report:" << endl;
-  cout << "\t" << "There will be " << acc[2] << " tornadoes in Kansas this year." << endl;
-  cout << "\t" << "There will be " << acc[3] << " tornadoes in Oklahoma this year." << endl;
+  cout << " " << "There will be " << acc[2] << " tornadoes in Kansas this year." << endl;
+  cout << " " << "There will be " << acc[3] << " tornadoes in Oklahoma this year." << endl;
 
   return 0;
 }

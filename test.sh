@@ -103,6 +103,10 @@ launch()
     if [ -f "$fle.compile" ]; then
       compile="$fle.compile"
     fi
+    input="/dev/null"
+    if [ -f "$fle.input" ]; then
+      input="$fle.input"
+    fi
     externs=""
     externs_l=("$fle.*.c")
     for ext in $externs_l; do
@@ -119,7 +123,7 @@ launch()
 
         result=$?
         if [ $result -eq 0 ]; then
-          ./a.out | diff $f_diff /dev/stdin "$output"
+          ./a.out < "$input" | diff $f_diff /dev/stdin "$output"
 
           result=$?
           if [ $result -eq 0 ]; then

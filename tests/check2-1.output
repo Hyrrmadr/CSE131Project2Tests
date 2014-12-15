@@ -67,7 +67,7 @@ GOOD
 true
 INPUTS
 4 3.02
-YOUR VALUES (INT, INT, FLOAT, FLOAT)
+10 -42 3.14 4.00
 FOO
 START: i = 0; j = 5
 START: i = 4; j = 4

@@ -1,0 +1,18 @@
+// Credit to Ren Lee (https://piazza.com/class/hygqr9e9z2n643?cid=344)
+
+typedef int INT;
+typedef float FLOAT;
+typedef int* IPTR;
+typedef float* FPTR;
+
+function : void main() {
+ IPTR ip;
+ FPTR fp;
+ new ip;
+ cin >> *ip;
+ fp = (FPTR) ip;
+ cout << *ip << " converted to FP: " << *fp << endl;
+ cin >> *fp;
+ cout << *fp << " converted to int: " << *ip << endl;
+ delete fp;
+}

@@ -71,24 +71,39 @@ function : int mul3(int i) {
   return i * 3;
 }
 
+structdef FUNC {
+  funcptr : void() my_ptr;
+};
+
+typedef funcptr : void() MY_PTR;
+
+structdef FUNC2 {
+  int [4] arr;
+  MY_PTR[3] fs;
+};
+
 funcptr : int(int a) sp_ptr = mul2;
 funcptr : void() lolptr = nullptr;
 
 function : void fptrs() {
   cout << "FPTRS" << endl;
 
+  FUNC f;
   STR s;
   static STR* sp = &s;
 
   funcptr : void() vd_ptr = nullptr;
+  funcptr : int(int a) sp_ptr2;
 
   cout << "Simple" << endl;
   cout << "1: " << sp_ptr(3) << endl;
-  sp_ptr = mul3;
+  sp_ptr2 = mul3;
+  sp_ptr = sp_ptr2;
   cout << "2: " << sp_ptr(3) << endl;
 
   cout << "Struct1" << endl;
-  vd_ptr = s.reset;
+  f.my_ptr = s.reset;
+  vd_ptr = f.my_ptr;
   vd_ptr();
   cout << "1: ";
   vd_ptr = s.dump;
@@ -98,14 +113,45 @@ function : void fptrs() {
   cout << "2: ";
   vd_ptr = sp->dump;
   vd_ptr();
+  f.my_ptr = s.dump;
 
   cout << "Struct2" << endl;
   sp_ptr = s.min;
   cout << "1: " << sp_ptr(3) << endl;
   cout << "2: " << sp_ptr(100) << endl;
-  sp_ptr = sp->max;
+  sp_ptr2 = sp->max;
+  sp_ptr = sp_ptr2;
   cout << "3: " << sp_ptr(3) << endl;
   cout << "4: " << sp_ptr(100) << endl;
+
+  cout << "More" << endl;
+  FUNC f2 = f;
+  f2.my_ptr();
+  FUNC2 f3;
+  foreach (int& ai : f3.arr) {
+    ai = 1;
+  }
+  foreach (MY_PTR& fi : f3.fs) {
+    fi = f2.my_ptr;
+    fi();
+  }
+  foreach (MY_PTR fi : f3.fs) {
+    fi = s.reset;
+    fi();
+  }
+  foreach (MY_PTR& fi : f3.fs) {
+    fi();
+  }
+  foreach (int ai : f3.arr) {
+    cout << " " << ai;
+  } cout << endl;
+  FUNC2 f4 = f3;
+  foreach (MY_PTR fi : f4.fs) {
+    fi();
+  }
+  foreach (int ai : f4.arr) {
+    cout << " " << ai;
+  } cout << endl;
 }
 
 int *gptr = (int*) 42;
@@ -160,7 +206,7 @@ function : void casts() {
   ptr = nullptr;
   fptr = &f;
 
-  cout << (bool) i << ", " << (bool) f << ", " << (bool) ptr << ", " << (bool) fptr << endl;
+  cout << (bool) i << ", " << (bool) ptr << ", " << (bool) fptr << endl;
 
   cout << "From float" << endl;
 

@@ -1,8 +1,4 @@
 
-// USE THIS TO DISABLE CIN
-bool test_cin = false;
-// /CIN
-
 int i = 0;
 
 function : void foo() {
@@ -195,17 +191,12 @@ function : void inputs() {
 
   cout << i2 << " " << f2 << endl;
 
-  if (test_cin) {
-    cin >> i1;
-    cin >> i2;
-    cin >> f1;
-    cin >> f2;
+  cin >> i1;
+  cin >> i2;
+  cin >> f1;
+  cin >> f2;
 
-    cout << i1 << " " << i2 << " " << f1 << " " << f2 << endl;
-  }
-  if (!test_cin) {
-    cout << "YOUR VALUES (INT, INT, FLOAT, FLOAT)" << endl;
-  }
+  cout << i1 << " " << i2 << " " << f1 << " " << f2 << endl;
 }
 
 function : void main() {

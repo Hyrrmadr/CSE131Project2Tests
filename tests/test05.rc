@@ -1,0 +1,29 @@
+// Credit to Ren Lee (https://piazza.com/class/hygqr9e9z2n643?cid=344)
+
+structdef MS {
+  float i;
+  MS * p;
+};
+
+MS *x, *p, *q, *r, *s, *t;
+
+function : void main() {
+   new p; new q; new r; new s; new t;
+   p->p=q;
+   q->p=r;
+   r->p=s;
+   s->p=t;
+   t->p=p;
+   cin >> p->i;
+   cin >> q->i;
+   cin >> r->i;
+   cin >> s->i;
+   cin >> t->i;
+   int looped = 0;
+   x = p->p; while (true) {
+	cout << x->i << " "; x = x->p;
+	if(x == p) { looped++; cout << x->i << endl; }
+        if(looped == 2) { break; }
+   }
+   delete p; delete q; delete r; delete s; delete t;
+}
