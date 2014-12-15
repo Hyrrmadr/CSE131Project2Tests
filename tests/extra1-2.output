@@ -1,0 +1,1 @@
+Attempt to dereference a pointer into deallocated stack space.

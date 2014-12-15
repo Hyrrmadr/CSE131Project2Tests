@@ -1,0 +1,29 @@
+// Credit to Spec
+
+function : int * good(bool alloc) {
+    static int y = 5;
+    int * yy;
+    if (alloc) {
+        new yy;
+        return yy;
+    }
+    return &y;
+}
+
+function : int * bad() {
+    int z;
+    return &z;
+}
+
+int * ip;
+
+function : void main() {
+  int ** ipp = &ip;
+
+  *ipp;
+  *&ipp;
+  *(p = good(true));
+  delete p;
+  *good(false);
+  *bad();
+}
