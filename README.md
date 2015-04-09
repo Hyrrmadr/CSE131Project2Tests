@@ -46,6 +46,6 @@ MIT
 
 ### Credits
 
-Only tests starting with "check" are mine.
+Only tests starting with "check" are from myself ([Louis Brunner](https://github.com/Hyrrmadr)).
 All the others are from other **awesome** people. (I mean, Mersenne twister and Tetris ? *wow*)
 Credit can be found on top of each file.
