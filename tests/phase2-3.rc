@@ -1,0 +1,94 @@
+
+
+structdef MYS {
+	int x;
+	int y;
+	float f;
+} 
+
+
+function : int foo(int x, int& y) {
+	cout << x << endl; //
+	
+	return x++;
+}
+
+function : int& foo2(int a) {
+	cout << " Here in foo2() " << endl; // Here in foo2() 
+	return a;
+}
+
+function : void main() {
+ 	int y = 2;
+ 	int x = foo(3,y);
+ 	cout << x << endl; //3
+ 	float f = 4.0;
+ 	f++;
+ 	cout << f << endl; //5.0
+ 	
+ 	//Array Tests
+ 	
+ 	//Assignments
+ 	int [3] arr;
+ 	arr[2] = 1;
+ 	arr[1] = y++;
+ 	cout << arr[2] << endl; //1
+ 	//unary Op test
+ 	cout << ++arr[2] << endl //2
+ 	cout << arr[2]-- << endl //1
+ 	cout << ++arr[2] << endl //2
+ 	cout << arr[2] + 3  * 2 - 10 << endl //-1
+ 	cout << -arr[2] + 3  * 2 - 10 << endl //-6
+ 	
+ 	cout << foo(arr[1],arr[2]) << endl; //2
+ 	cout << ++foo(arr[1],arr[2]) + arr[2]-- << endl; //5
+ 	cout << arr[2]++ << endl; //2
+ 	
+	
+	
+	if(foo(arr[1],arr[2]) < 5) {
+		cout << " Within If " << endl; // Within If 
+	}	
+	
+	y = y + 10;
+	
+	cout << foo(arr[1],arr[2]) << endl; //2
+	
+	if(foo(arr[1],arr[2]) < 5) {
+		cout << " Within If " << endl; // Within If 
+	}	
+	
+	foreach (int a : arr) {
+		cout << a << endl; //0,3,1
+	}
+	
+	float*[2] fArr;
+	
+	foreach (int *& a : arr) {
+		cout << a << endl; //0.0,0.0,0.0
+	}
+	
+	
+	
+	//Struct tests
+	//MYS.x = 5;
+	//cout << MYS.x << endl; //5
+	//cout << MYS.x =  foo(arr[0],arr[2]) << endl; //0
+	//typedef MYS MYS1;
+	//typedef MYS[4] STRUCTARR;
+	//STRUCTARR[2] = MYS;
+	//cout << STRUCTARR[2].x << endl; //0
+	
+	
+	
+	//Phase 3
+	//int int_var = 3;
+	//int * int_ptr = &int_var;
+	//cout << *int_ptr << endl; //3
+	
+	//type casts
+	//int typInt = 2;
+	//cout << (float)typInt << endl; //2.00
+	
+	
+}
